@@ -35,7 +35,7 @@ def addUser(request):
 
 def AccessupdateUserPage(request):
     if request.method == 'GET':
-        idNumber = request.GET.get("number", None)
+        idNumber = request.GET.get("idNumber", None)
         select_user = user.objects.filter(idNumber = idNumber)
         context = {
             'user': select_user

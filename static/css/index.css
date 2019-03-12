@@ -1,5 +1,5 @@
-@charset "UTF-8";
-
-form {
-	margin: 0px;
+#addUserBtn {
+    position: fixed;
+    left: 90%;
+    top: 90%
 }

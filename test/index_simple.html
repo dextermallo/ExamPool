@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>User index</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+</head>
+
+<body>
+    <a href = "/accessAddUserPage/"><input type = "button" value = "Add User"></a>
+    <table>
+        <thead>
+            <th>Id Number</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>mailbox</th>
+            <th>power</th>
+            <th>password</th>
+        </thead>
+        <tbody>
+            {% for item in user %}
+                <tr>
+                    <td>{{ item.idNumber }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.age }}</td>
+                    <td>{{ item.mailbox }}</td>
+                    <td>{{ item.power}}</td>
+                    <td>{{ item.password}}</td>
+                    <td>
+                        <a href = "/accessUpdateUserPage/?idNumber={{ item.idNumber }}"><input type = "button" value = "modify"></a>
+                        <a href = "/deleteUser/?idNumber={{ item.idNumber }}"><input type = "button" value = "delete"></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <th colspan="6">
+                    {% if user.has_previous %}
+                    <a href="?page={{ user.previous_page_number }}"><input type = "button" value = "previous page"></a>
+                    {% endif %}
+                    <span>{{ user.number }} of {{ user.paginator.num_pages }}</span>
+                    {% if user.has_next %}
+                        <a href = "?page={{ user.next_page_number }}"><input type = "button" value = "next page"></a>
+                    {% endif %}
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

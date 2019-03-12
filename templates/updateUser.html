@@ -3,27 +3,45 @@
 <head>
     <meta charset = "UTF-8">
     <title>Update user</title>
-    <link rel = "stylesheet" type = "text/css" href = "../static/css/index.css">
+    <link rel = "stylesheet" type = "text/css" href = "../static/bootstrap-4.3.1/css/bootstrap.min.css">
 </head>
 
 <body>
     <form action = "/updateUser/" method = "post">
-        {% for i in user %}
-        <p>ID Number</p>
-        <input type = "text" name = "idNumber"  value = "{{ i.idNumber }}"><br>
-        <p>Name</p>
-        <input type = "text" name = "name" value = "{{ i.name }}"><br>
-        <p>Age</p>
-        <input type = "text" name = "age" value = "{{ i.age }}"><br>
-        <p>Mailbox</p>
-        <input type = "text" name = "mailbox" value = "{{ i.mailbox }}"><br>
-        <p>Power</p>
-        <input type = "text" name = "power" value = "{{ i.power }}"><br>
-        <p>Password</p>
-        <input type = "text" name = "password" value = "{{ i.password }}"><br>
+    {% for i in user %}
+        <div class = "form-row">
+                <div class = "col-md-4 mb-4">
+                    <label for = "idNumber">ID Number</label>
+                    <input type = "text" name = "idNumber" value = "{{i.idNumber}}" class = "form-control" placeholder = "ID Number" id = "idNumber" required>
+                </div>
+                <div class = "col-md-4 mb-4">
+                    <label for = "name">Name</label>
+                    <input type = "text" name = "name" value = "{{i.name}}" class = "form-control" placeholder = "Name" id = "name" required>
+                </div>
+                <div class = "col-md-4 mb-4">
+                    <label for = "age">Age</label>
+                    <input type = "text" name = "age" value = "{{i.age}}" class = "form-control" placeholder = "Age" id = "age" required>
+                </div>
+            </div>
+            <div class = "form-row">
+                <div class = "col-md-6 mb-4">
+                    <label for = "mailbox">Mailbox</label>
+                    <input type = "text" name = "mailbox" value = "{{i.mailbox}}" class = "form-control" placeholder = "Mailbox" id = "mailbox" required>
+                </div>
+                <div class = "col-md-3 mb-4">
+                    <label for = "power">Power</label>
+                    <input type = "text" name = "power" value = "{{i.power}}" class = "form-control" placeholder = "Power" id = "power" required>
+                </div>
+                <div class = "col-md-3 mb-4">
+                    <label for = "password">Password</label>
+                    <input type = "text" name = "password" value = "{{i.password}}" class = "form-control" placeholder = "Password" id = "password" required>
+                </div>
+            </div>
+            <div class = "form-row">
+                <button class = "btn btn-primary" type = "submit">Confirm</button>
+            </div>            
+    {% endfor %}
+    </form>    
 
-        <input type = "submit" value = "Confrim">
-        {% endfor %}
-    </form>
 </body>
 </html>
