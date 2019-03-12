@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Update user</title>
+    <link rel = "stylesheet" type = "text/css" href = "../static/css/index.css">
+</head>
+
+<body>
+    <form action = "/updateUser/" method = "post">
+        {% for i in user %}
+        <p>ID Number</p>
+        <input type = "text" name = "idNumber"  value = "{{ i.idNumber }}"><br>
+        <p>Name</p>
+        <input type = "text" name = "name" value = "{{ i.name }}"><br>
+        <p>Age</p>
+        <input type = "text" name = "age" value = "{{ i.age }}"><br>
+        <p>Mailbox</p>
+        <input type = "text" name = "mailbox" value = "{{ i.mailbox }}"><br>
+        <p>Power</p>
+        <input type = "text" name = "power" value = "{{ i.power }}"><br>
+        <p>Password</p>
+        <input type = "text" name = "password" value = "{{ i.password }}"><br>
+
+        <input type = "submit" value = "Confrim">
+        {% endfor %}
+    </form>
+</body>
+</html>
