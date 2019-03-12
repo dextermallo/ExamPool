@@ -1,3 +1,4 @@
-settings.py 
 
-#'django.middleware.csrf.CsrfViewMiddleware',
+#note  
+  settings.py needs annotate 'django.middleware.csrf.CsrfViewMiddleware',
+
