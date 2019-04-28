@@ -14,11 +14,11 @@
 
         <div class = "container text-center">
             <div class = "justify-content-center w-100">
-                {% for department in Departments  %}
-                    <a href = {{department.short_name}} class = "btn btn-success w-50 mt-3">
-                        {{department.dp_name}}
-                    </a>
-                {% endfor %}
+                {% for article in Articles  %}
+                <a href = {{forloop.counter}} class = "btn btn-success w-50 mt-3id">
+                    {{article.title}}
+                </a>
+            {% endfor %}
             </div>
         </div>
     </body>

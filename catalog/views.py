@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.template import loader, Context, RequestContext
 
-from catalog.models import Departments
+from catalog.models import Departments, Articles
 
 import sys
 from .forms import *
@@ -78,5 +78,11 @@ def allSubject(request, dpname):
     }
     return render(request, 'sblist.html', context)
 
-def board(request, dpname, sbname):
-    return render(request, 'dplist.html')
+def board(request, dpname, sbindex):
+    print(dpname)
+    load_article = Articles.objects.filter(dp_short_name = dpname).filter(sb_index = sbindex)
+    print(load_article[0].content)
+    context = {
+        'Articles' : load_article
+    }
+    return render(request, 'board.html', context)

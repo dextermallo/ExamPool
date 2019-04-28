@@ -36,3 +36,11 @@ class Departments(Document):
     short_name = StringField()
     subjects = ListField(StringField())
     meta  = {'collection' : 'Departments'}
+
+class Articles(Document):
+    qid = IntField()
+    content = StringField()
+    dp_short_name = StringField()
+    sb_index = IntField()
+    title = StringField()
+    meta  = {'collection' : 'Article'}

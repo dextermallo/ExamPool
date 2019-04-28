@@ -28,5 +28,5 @@ urlpatterns = [
 
     path('departments/', views.allDepartment),
     path('departments/<str:dpname>/', views.allSubject),
-    path('departments/<str:dpname>/subjects/<str:sjindex>', views.board)
+    path('departments/<str:dpname>/<str:sbindex>/', views.board)
 ]
