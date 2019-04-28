@@ -1,30 +1,30 @@
 # usage
-cd env
-source bin/activate
+cd env  
+source bin/activate  
 
 # cmd
-python3 manage.py shell
+python3 manage.py shell  
 
 # run
-python3 manage.py runserver
+python3 manage.py runserver  
 
-# migrate (syncdb)
-python3 manage.py migrate
+# migrate (syncdb)  
+python3 manage.py migrate  
 
-# quit 
-deactivate
+# quit   
+deactivate  
 
 # startup(on Mac)
-cd env
-source bin/activate
-alias e="python3 manage.py"
-alias c="clear"
-e migrate
-c
+cd env  
+source bin/activate  
+alias e="python3 manage.py"  
+alias c="clear"  
+e migrate  
+c  
 
 # kill port(on Mac)
-lsof -i:<port-number>
-kill -9 <pid>
+lsof -i:<port-number>  
+kill -9 <pid>  
 
 
 
