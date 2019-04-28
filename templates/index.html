@@ -1,16 +1,15 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
-        <title>index</title>
-        <meta charset = "utf-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css">
+        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+        <title>Index</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        </style>
     </head>
     <body>
-        <a href="/accounts/register/">register</a>
-        {% if request.user.is_authenticated %}
-            <p>{{request.user}} logined.</p>
-            <a href = "/accounts/logout/">logout</a>
-        {% else %}
-            <p>not login</p>
-            <a href="/accounts/login/">login</a>
-        {% endif %}
+        {% include 'nav.html' %}
     </body>
 </html>

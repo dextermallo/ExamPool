@@ -3,7 +3,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.contrib.auth.models import User
-
+from django.template import loader, Context, RequestContext
+import sys
 def index(request):
     return render(request, 'index.html',locals())
 
@@ -28,9 +29,17 @@ def register(request):
         user = User.objects.create_user(username=request.POST.get('username', None), password=request.POST.get('password', None))
         user.save()
         return HttpResponseRedirect('/accounts/login/')
-    else:
-        return render(request, 'accounts/register.html',locals())
+    else:   
+        return render(request, 'accounts/register.html', locals())
     
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/index/')
+
+def userInfo(request, username):
+    
+    try:
+        result = User.objects.get(username = username)    
+    except:
+        result = False
+    return render(request, 'accounts/info.html', locals())

@@ -22,6 +22,11 @@ alias c="clear"
 e migrate
 c
 
+# kill port(on Mac)
+lsof -i:<port-number>
+kill -9 <pid>
+
+
 
 
 

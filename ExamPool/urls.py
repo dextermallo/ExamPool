@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^accounts/register/$',views.register),
     url(r'^accounts/logout/$', views.logout),
     url(r'^admin/', admin.site.urls),
-    #url(r'accounts/u/[a-zA-Z0-9]+', views.userInfo),
+    path('accounts/info/<str:username>/', views.userInfo)
 ]
