@@ -5,6 +5,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.template import loader, Context, RequestContext
 import sys
+from .forms import *
 def index(request):
     return render(request, 'index.html',locals())
 
@@ -26,10 +27,19 @@ def login(request):
 
 def register(request):
     if request.method == 'POST':
-        user = User.objects.create_user(username=request.POST.get('username', None), password=request.POST.get('password', None))
-        user.save()
-        return HttpResponseRedirect('/accounts/login/')
-    else:   
+        form = registerForm(request.POST)
+        if form.is_valid():
+            
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = User.objects.create_user(username = username, password = password)
+            user.save()
+            return HttpResponseRedirect('/accounts/login/')
+        else:
+            form = registerForm()
+            return render(request, 'accounts/register.html', locals())    
+    else:
+        form = registerForm()
         return render(request, 'accounts/register.html', locals())
     
 def logout(request):
@@ -37,7 +47,7 @@ def logout(request):
     return HttpResponseRedirect('/index/')
 
 def userInfo(request, username):
-    
+    print(request.user.username, file=sys.stderr)
     try:
         result = User.objects.get(username = username)    
     except:

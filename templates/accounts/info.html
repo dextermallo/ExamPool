@@ -7,11 +7,15 @@
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     </head>
     <body>
-        {% include 'nav.html' %}
         {% if result == False %}
-            {% include 'accounts/infoNotFound.html' %}
+            {% include 'error.html' %}
         {% else %}
-            {% include 'accounts/infoStatus.html' %}
+            {% include 'nav.html' %}
+            {% if request.user.username == username %}
+                {% include 'accounts/_setting.html' %}
+            {% else %}
+                {% include 'accounts/_others.html' %}
+            {% endif %}
 		{% endif %}
     </body>
 </html>

@@ -1,3 +1,9 @@
+# installation
+brew install mongodb 
+pip3 install django  
+pip3 install djongo  
+pip3 install django-widget-tweaks  
+
 # usage
 cd env  
 source bin/activate  

@@ -15,3 +15,7 @@ print(<var>, file = sys.stderr)
 
 5. {% include <html path> %}
 路徑是以templates為root, 以絕對路徑access較佳
+
+6. django-widget-tweaks: 'render_field' tag requires a form field followed by a list of attributes and values in the form attr="value": class
+{% render_field field class ="form-control is-valid" %}
+                           ^ ^both case sensitivite.(no space)

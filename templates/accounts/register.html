@@ -13,6 +13,7 @@
         </style>
     </head>
     <body>
+        {% load widget_tweaks %}
         <div class = "container">
             <form action = "" method = "POST">
                 <div class = 'row justify-content-around align-items-center'>
@@ -21,12 +22,12 @@
                 <div class = 'row justify-content-around align-items-center'>
                     <h1 class="h3 font-weight-normal">Register</h1>
                 </div>
-                <div class = 'row justify-content-around align-items-center'>
-                    <input type = "text" name = "username" value = "" id = "username" class = "form-control grid" placeholder="username" required autofocus>
-                </div>
-                <div class = 'row justify-content-around align-items-center'>
-                    <input type = "password" name = "password" value= "" id = "password" class="form-control grid" placeholder="password" required>
-                </div>
+                {% for field in form %} 
+                    <div class="row justify-content-around align-items-center form-group">  
+                    <!--<label  for="{{ field.id_for_label }}">{{ field.label }}:</label>-->
+                    {% render_field field class+="form-control grid" %}    
+                    </div> 
+                {% endfor %}
                 <div class = 'row justify-content-around align-items-center'>
                     <button class = "btn btn-lg btn-primary btn-block grid" type="submit">Register</button>    
                 </div>

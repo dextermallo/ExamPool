@@ -20,10 +20,10 @@ from django.conf.urls import url, include
 from catalog import views
 urlpatterns = [
 
-    url(r'^index/$',views.index),
-    url(r'^accounts/login/$',views.login),
-    url(r'^accounts/register/$',views.register),
-    url(r'^accounts/logout/$', views.logout),
-    url(r'^admin/', admin.site.urls),
+    path('index/',views.index),
+    path('accounts/login/',views.login),
+    path('accounts/register/',views.register),
+    path('accounts/logout/', views.logout),
+    path('admin/', admin.site.urls),
     path('accounts/info/<str:username>/', views.userInfo)
 ]
