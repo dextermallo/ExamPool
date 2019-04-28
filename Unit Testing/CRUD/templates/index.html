@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>User index</title>
+    <link rel = "stylesheet" type = "text/css" href = "../static/bootstrap-4.3.1/css/bootstrap.min.css">
+    <link rel = "stylesheet" type = "text/css" href = "../static/css/index.css"
+</head>
+
+<body>
+
+    <div class = "container">
+        <div class = "row mb-3">
+           <table class = "table table-condensed">
+                <thead>
+                    <th>Id Number</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Mailbox</th>
+                    <th>Power</th>
+                    <th>Password</th>
+                    <th>Modify</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody>
+                    {% for item in user %}
+                        <tr>
+                            <td>{{ item.idNumber }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.age }}</td>
+                            <td>{{ item.mailbox }}</td>
+                            <td>{{ item.power}}</td>
+                            <td>{{ item.password}}</td>
+                            <td><a href = "/accessUpdateUserPage/?idNumber={{ item.idNumber }}" class = "btn btn-primary">Modify</a></td>
+                            <td><a href = "/deleteUser/?idNumber={{ item.idNumber }}" class = "btn btn-primary">Delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table> 
+        </div>
+        <div class = "row mb-3">
+            <div class = "col-md-5"></div>
+            {% if user.has_previous %}
+                <a href="?page={{ user.previous_page_number }}" class = "btn btn-success">Previous page</a>
+            {% endif %}
+                <h3>&nbsp{{ user.number }} of {{ user.paginator.num_pages }}&nbsp</h3>
+            {% if user.has_next %}
+                <a href = "?page={{ user.next_page_number }}" class = "btn btn-success">Next page</a>
+            {% endif %}
+        </div>
+    </div>
+
+
+    
+    
+    
+    <a href = "/accessAddUserPage/" class = "btn btn-primary" id = "addUserBtn">Add User</a>
+</body>
+</html>
