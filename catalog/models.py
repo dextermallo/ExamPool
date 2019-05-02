@@ -20,27 +20,42 @@ class Block(Document):
     Src = StringField()
     meta = {'collection': 'Block'}
 
-class Article(Document):
-    QID = IntField()
-    Comment = StringField()
-    meta  = {'collection' : 'Article'}
-
 class Subject(Document):
     dp_name = StringField()
     short_name = StringField()
     subjects = ListField(StringField())
     meta  = {'collection' : 'Subject'}
 
-class Departments(Document):
+class Department(Document):
     dp_name = StringField()
-    short_name = StringField()
-    subjects = ListField(StringField())
-    meta  = {'collection' : 'Departments'}
+    dp_abb = StringField()
+    sb_name = ListField(StringField())
+    meta  = {'collection' : 'Department'}
 
-class Articles(Document):
+class Article(Document):
     qid = IntField()
     content = StringField()
-    dp_short_name = StringField()
+    dp_abb = StringField()
     sb_index = IntField()
     title = StringField()
+    tag_name = ListField(StringField())
+    tag_count = ListField(IntField())
+    post_date = DateTimeField()
+    revise_date = DateField()
+    good_count = IntField()
+    bad_count = IntField()
+    author = IntField()
     meta  = {'collection' : 'Article'}
+
+class Comment(Document):
+    qid = IntField()
+    content = StringField()
+    article_id = IntField()
+    post_date = DateField()
+    revise_date = DateField()
+    good_count = IntField()
+    bad_count = IntField()
+    author = IntField()
+    child_comment_id = IntField()
+    parent_comment_id = IntField()
+    meta  = {'collection' : 'Comment'}

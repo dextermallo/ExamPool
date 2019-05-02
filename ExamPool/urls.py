@@ -26,7 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/info/<str:username>/', views.userInfo),
 
-    path('departments/', views.allDepartment),
-    path('departments/<str:dpname>/', views.allSubject),
-    path('departments/<str:dpname>/<str:sbindex>/', views.board)
+    path('department/', views.allDepartment),
+    path('department/<str:dpName>/', views.allSubject),
+    path('department/<str:dpName>/<str:sbIndex>/', views.board),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', views.article)
 ]

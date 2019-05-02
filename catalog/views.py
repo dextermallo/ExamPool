@@ -5,7 +5,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.template import loader, Context, RequestContext
 
-from catalog.models import Departments, Articles
+from catalog.models import Department, Article, Comment
 
 import sys
 from .forms import *
@@ -58,31 +58,42 @@ def userInfo(request, username):
     return render(request, 'accounts/info.html', locals())
 
 
-# path('departments/', views.allDepartment),
-# path('departments/<str:dpname>/', views.allSubject),
-# path('departments/<str:dpname>/subjects/<str:sbname>', views.board)
+# path('department/', views.allDepartment),
+# path('department/<str:dpname>/', views.allSubject),
+# path('department/<str:dpname>/subject/<str:sbname>', views.board)
 
 def allDepartment(request):
-    load_departments = Departments.objects
+    load_department = Department.objects
     context = {
-        'Departments' : load_departments
+        'Department' : load_department
     }
     return render(request, 'dplist.html', context)
 
-def allSubject(request, dpname):
-    load_department = Departments.objects.get(short_name = dpname)
-    print(dpname)
-    print(load_department.subjects[0])
+def allSubject(request, dpName):
+    load_department = Department.objects.get(dp_abb = dpName)
+    print(dpName)
+    print(load_department.sb_name[0])
     context = {
         'Department' : load_department
     }
     return render(request, 'sblist.html', context)
 
-def board(request, dpname, sbindex):
-    print(dpname)
-    load_article = Articles.objects.filter(dp_short_name = dpname).filter(sb_index = sbindex)
+def board(request, dpName, sbIndex):
+    print(dpName)
+    load_article = Article.objects.filter(dp_abb = dpName).filter(sb_index = sbIndex)
     print(load_article[0].content)
     context = {
-        'Articles' : load_article
+        'Article' : load_article
     }
     return render(request, 'board.html', context)
+
+def article(request, dpName, sbIndex, articleId):
+    print(dpName)
+    load_article = Article.objects.filter(dp_abb = dpName).filter(sb_index = sbIndex).get(qid = articleId)
+    print(load_article.content)
+    laod_comment = Comment.objects.filter(article_id = articleId)
+    context = {
+        'Article' : load_article,
+        'Comment' : laod_comment
+    }
+    return render(request, 'article.html', context)

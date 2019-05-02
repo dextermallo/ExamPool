@@ -14,11 +14,11 @@
 
         <div class = "container text-center">
             <div class = "justify-content-center w-100">
-                {% for subject in Department.subjects  %}
-                <a href = {{forloop.counter}} class = "btn btn-success w-50 mt-3id">
-                    {{subject}}
-                </a>
-            {% endfor %}
+                {% for subject in Department.sb_name  %}
+                    <a href = {{forloop.counter}} class = "btn btn-success w-50 mt-3">
+                        {{subject}}
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </body>

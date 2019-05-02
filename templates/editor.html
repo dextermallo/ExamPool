@@ -8,18 +8,37 @@
         <title>Index</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         </style>
+
+        <!-- Include stylesheet -->
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+        <!-- Include the Quill library -->
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
     </head>
     <body>
         {% include 'nav.html' %}
 
         <div class = "container text-center">
             <div class = "justify-content-center w-100">
-                {% for department in Department  %}
-                    <a href = {{department.dp_abb}} class = "btn btn-success w-50 mt-3">
-                        {{department.dp_name}}
-                    </a>
-                {% endfor %}
+                {% for article in Articles  %}
+                <a href = {{forloop.counter}} class = "btn btn-success w-50 mt-3id">
+                    {{article.title}}
+                </a>
+            {% endfor %}
             </div>
         </div>
+        <!-- Create the editor container -->
+        <div id="editor">
+        <p>Hello World!</p>
+        <p>Some initial <strong>bold</strong> text</p>
+        <p><br></p>
+        </div>
     </body>
+            <!-- Initialize Quill editor -->
+        <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+        </script>
 </html>

@@ -14,10 +14,28 @@
 
         <div class = "container text-center">
             <div class = "justify-content-center w-100">
-                {% for department in Department  %}
-                    <a href = {{department.dp_abb}} class = "btn btn-success w-50 mt-3">
-                        {{department.dp_name}}
+                <div>
+                    <a>
+                        標題 : {{Article.title}}
                     </a>
+                    <a>
+                        作者 : {{Article.author}}
+                    </a>
+                    <a>
+                        時間 : {{Article.post_date}}
+                    </a>
+                </div>
+                {{Article.content|safe}}
+            </div>
+
+            <a href = {{Article.qid}} class = "btn btn-success w-50 mt-3">
+                留言區
+            </a>
+            <div>
+                {% for comment in Comment %}
+                    #{{forloop.counter}}
+                    {{comment.author}} :
+                    {{comment.content|safe}}
                 {% endfor %}
             </div>
         </div>
