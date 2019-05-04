@@ -5,10 +5,12 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.template import loader, Context, RequestContext
 
+from django.db.models import Max
 from catalog.models import Department, Article, Comment
 
 import sys
 from .forms import *
+
 def index(request):
     return render(request, 'index.html',locals())
 
@@ -32,7 +34,7 @@ def register(request):
     if request.method == 'POST':
         form = registerForm(request.POST)
         if form.is_valid():
-            
+
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user = User.objects.create_user(username = username, password = password)
@@ -81,7 +83,6 @@ def allSubject(request, dpName):
 def board(request, dpName, sbIndex):
     print(dpName)
     load_article = Article.objects.filter(dp_abb = dpName).filter(sb_index = sbIndex)
-    print(load_article[0].content)
     context = {
         'Article' : load_article
     }
@@ -97,3 +98,27 @@ def article(request, dpName, sbIndex, articleId):
         'Comment' : laod_comment
     }
     return render(request, 'article.html', context)
+
+def postArticle(request, dpName, sbIndex):
+    if request.method == 'POST':
+        form = articleForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.qid = Article.objects.order_by('-qid')[0].qid + 1
+            form.dp_abb = dpName
+            form.sb_index = sbIndex
+            form.save()
+            return HttpResponseRedirect('/department')
+        else:
+            form = articleForm()
+            return render(request, 'post.html', locals())
+    else:
+        form = articleForm()
+    form = articleForm()
+    print(form)
+    context = {
+        'dp_abb' : dpName,
+        'sb_index' : sbIndex,
+        'form' : form
+    }
+    return render(request, 'post.html', context)
