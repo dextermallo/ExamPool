@@ -33,11 +33,15 @@
             </a>
             <div>
                 {% for comment in Comment %}
-                    #{{forloop.counter}}
-                    {{comment.author}} :
-                    {{comment.content|safe}}
+                    <div class = "container mt-3">
+                        <a href = "edit/reply" class = "btn-sm btn-success text-center">reply</a>
+                        #{{forloop.counter}}
+                        {{comment.author}} :
+                        {{comment.content|safe}}
+                    </div>
                 {% endfor %}
             </div>
         </div>
+        {% include 'reply.html' %}
     </body>
 </html>
