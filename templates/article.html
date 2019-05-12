@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css">
+        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+        <title>Index</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        </style>
+    </head>
+    <body>
+        {% include 'nav.html' %}
+
+        <div class = "container text-center">
+            <div class = "justify-content-center w-100">
+                <div>
+                    <a>
+                        標題 : {{Article.title}}
+                    </a>
+                    <a>
+                        作者 : {{Article.author}}
+                    </a>
+                    <a>
+                        時間 : {{Article.post_date}}
+                    </a>
+                </div>
+                {{Article.content|safe}}
+            </div>
+
+            <a href = {{Article.qid}} class = "btn btn-success w-50 mt-3">
+                留言區
+            </a>
+            <div>
+                {% for comment in Comment %}
+                    #{{forloop.counter}}
+                    {{comment.author}} :
+                    {{comment.content|safe}}
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

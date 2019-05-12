@@ -3,6 +3,7 @@ brew install mongodb
 pip3 install django  
 pip3 install djongo  
 pip3 install django-widget-tweaks  
+pip3 install Pillow
 
 # usage
 cd env  
@@ -32,7 +33,11 @@ c
 lsof -i:<port-number>  
 kill -9 <pid>  
 
+# drop database
+mongo <dbname> --eval "db.dropDatabase()"
 
-
+# delete migrations (in root path)
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
 
 

@@ -25,5 +25,11 @@ urlpatterns = [
     path('accounts/register/',views.register),
     path('accounts/logout/', views.logout),
     path('admin/', admin.site.urls),
-    path('accounts/info/<str:username>/', views.userInfo)
+    path('accounts/info/<str:username>/', views.userInfo),
+    path('department/', views.allDepartment),
+    path('department/<str:dpName>/', views.allSubject),
+    path('department/<str:dpName>/<str:sbIndex>/', views.board),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', views.article),
+
+    path('department/<str:dpName>/<str:sbIndex>/edit/post', views.postArticle)
 ]

@@ -38,11 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
-    'ExamPool'
+    'ExamPool',
+    'catalog'
 ]
 
-#AUTH_USER_MODEL = 'users.CustomUser'
-
+AUTH_USER_MODEL = 'catalog.User'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -81,6 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'HOST': 'localhost:27017',
+        'NAME': 'ExamPool'
     }
 }
 

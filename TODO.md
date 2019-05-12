@@ -59,5 +59,6 @@
     1. 更改為用forms.py 進行管理
     2. 用 widget-tweaks 解耦 view 和 controller 的關係
     3. 修正 urls.py 路徑
+ ## 2019/5/02
+    1. 加入.sh 自動初始化
     
-
