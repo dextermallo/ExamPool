@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
+#from django.contrib.auth.models import User
 from django.template import loader, Context, RequestContext
 import sys
 from .forms import *
@@ -28,26 +29,25 @@ def login(request):
         return render(request, 'accounts/login.html') 
 
 def register(request):
-    
+    print(request, file=sys.stderr)
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        email = request.POST.get('email', '')
-        
-        user = User.create_user(username = username, password = password, email = 'test@mail.com', icon = "", voting = 0, favorite = "", contribution= "")
-        user.save()
-        #return render(request, '/accounts/login/', locals())
-        ret = {
-            'username': username,
-            'password': password
-        }
-        return HttpResponseRedirect('/accounts/login/')
+        form = registerForm(request.POST)
+        print("in req", file=sys.stderr)    
+        if form.is_valid():
+            
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            
+            user = User.create_user(username = username, password = password, email = 'test@mail.com', icon = "", voting = 0, favorite = "", contribution= "")
+            user.save()
+            #return render(request, '/accounts/login/', locals())
+            return HttpResponseRedirect('/accounts/login/')
+        else:
+            form = registerForm()
+            return render(request, 'accounts/register.html', locals())    
     else:
-        ret = {
-            'username': request.GET.get('username', ''),
-            'password': request.GET.get('password', '')
-        }
-        return render(request, 'accounts/login.html', ret)
+        form = registerForm()
+        return render(request, 'accounts/register.html', locals())
     
 def logout(request):
     auth.logout(request)
@@ -72,6 +72,9 @@ def userInfo(request, username):
     except:
         result = False
     return render(request, 'accounts/info.html', ret)
+
+def addToDept():
+    dept = Department(dp_name = '資工', sb_name = ['MV','TEST'], dp_abb = 'CS')
 
 def allDepartment(request):
     load_department = Department.objects.all()
@@ -104,9 +107,7 @@ def article(request, dpName, sbIndex, articleId):
     laod_comment = Comment.objects.filter(article_id = articleId)
     context = {
         'Article' : load_article,
-        'Comment' : laod_comment,
-        'tag_name': [],
-        'tag_count': []
+        'Comment' : laod_comment
     }
     return render(request, 'article.html', context)
 
@@ -118,8 +119,6 @@ def postArticle(request, dpName, sbIndex):
             form.qid = Article.objects.order_by('-qid')[0].qid + 1
             form.dp_abb = dpName
             form.sb_index = sbIndex
-            form.tag_name = []
-            form.tag_count = []
             form.save()
             return HttpResponseRedirect('/department')
         else:

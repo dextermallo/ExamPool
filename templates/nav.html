@@ -1,15 +1,43 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal">ExamPool</h5>
+<style>
+#navbar {
+    color: rgb(75,147,67);
+    background-color: rgba(0,0,0,0.85);
+    height: 50px;
+}
+
+.navitem {
+    color: rgb(75,147,67);
+}
+
+#icon {
+    width: 30px;
+    height: 55px;
+}
+
+#navbar .btn {
+    color: white;
+    margin-right: 5px;
+}
+
+#navbar .btn:last-child {
+    margin-right: 0px;
+}
+
+</style>
+
+<div id = "navbar" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-black border-bottom shadow-sm" >
+    
+    <img class="my-0 mr-md-auto font-weight-normal" id = "icon" src= "/../static/img/nav-icon.png"></img>
     <nav class="my-2 my-md-0 mr-md-3">
-<a class="p-2 text-dark" href="#">Nav-1</a>
-<a class="p-2 text-dark" href="#">Nav-2</a>
-<a class="p-2 text-dark" href="#">Nav-3</a>
-<a class="p-2 text-dark" href="#">Nav-4</a>
+<a class="p-2 navitem" href="/department">Department</a>
+<a class="p-2 navitem" href="#">Nav-2</a>
+<a class="p-2 navitem" href="#">Nav-3</a>
+<a class="p-2 navitem" href="#">Nav-4</a>
     </nav>
     {% if request.user.is_authenticated %}
-<a class="btn btn-outline-primary" href="/accounts/info/{{request.user.username}}/">User info</a> 
-<a class="btn btn-outline-primary" href="/accounts/logout/">Sign out</a> 
+<a class="btn btn-success btn-sm" href="/accounts/info/{{request.user.username}}/">User info</a> 
+<a class="btn btn-success btn-sm" href="/accounts/logout/">Sign out</a> 
     {% else %}
-<a class="btn btn-outline-primary" href="/accounts/register/">Register</a>
-<a class="btn btn-outline-primary" href="/accounts/login/">Sign in</a> {% endif %}
+<a class="btn btn-success btn-sm" href="/accounts/register/">Register</a>
+<a class="btn btn-success btn-sm" href="/accounts/login/">Sign in</a> {% endif %}
 </div>

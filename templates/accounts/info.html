@@ -3,9 +3,11 @@
     <head>
         <meta charset = "utf-8">
         <title>Userinfo</title>
-		<script src = '/../../static/bootstrap-4.3.1/js/bootstrap.bundle.min.js' type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="/../../static/bootstrap-4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/../../static/bootstrap-4.3.1/css/bootstrap.min.css">
+        <script src="/../../static/js/jquery-3.4.1.min.js"></script>
+        <script src="/../../static/bootstrap-4.3.1/js/bootstrap.min.js"></script>
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         {% if result == False %}
@@ -13,7 +15,7 @@
         {% else %}
             {% include 'nav.html' %}
             {% if request.user.username == username %}
-                {% include 'accounts/_setting.html' %}
+                {% include 'accounts/_profile.html' %}
             {% else %}
                 {% include 'accounts/_others.html' %}
             {% endif %}

@@ -10,16 +10,15 @@ class User(AbstractUser):
     voting = models.IntegerField()
     favorite = models.CharField(max_length=500)
     contribution = models.CharField(max_length=100)
-    registerDate = models.DateTimeField()
     
     class Meta(AbstractUser.Meta):
         pass
     
-    def create_user(username, email, password, icon, voting, favorite, contribution):
+    def create_user(username, password, email, icon, voting, favorite, contribution):
         if not password:
             raise ValueError('missing password')
         cur_time = datetime.now()
-        user = User(username = username, email = email, icon = icon, voting = voting, favorite = favorite, contribution = contribution, registerDate = cur_time)
+        user = User(username = username, email = email, icon = icon, voting = voting, favorite = favorite, contribution = contribution)
         user.set_password(password)
         user.save()
         return user
@@ -31,12 +30,6 @@ class User(AbstractUser):
         user.is_superuser = True
         user.save()
         return user
-        
-class Block(models.Model):
-    Department = models.CharField(max_length=100)
-    Subject = models.ListField(models.CharField(max_length=100))
-    Src = models.CharField(max_length=100)
-    meta = {'collection': 'Block'}
 
 class Subject(models.Model):
     dp_name = models.CharField(max_length=100)

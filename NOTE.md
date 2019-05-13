@@ -1,3 +1,5 @@
+# updated 2019/4/28/13:25 by Dexter.
+# NOTED
 1. 導向路徑
 href = "accounts/logout/"  > /root/accounts/logout/
 href = "/accounts/logout/" > /現在所在的位子/accounts/logout/
@@ -11,7 +13,7 @@ post 是丟 input name = "", 不是看id
 
 4. debug in terminal
 import sys
-print(<var>, file = sys.stderr)
+print([var], file = sys.stderr)
 
 5. {% include <html path> %}
 路徑是以templates為root, 以絕對路徑access較佳
@@ -28,3 +30,112 @@ mongoimport --db dbName --collection collectionName --file fileName.json
  ＊注意匯入的檔案名稱是appname_collectionName，如catalog_department
 
 
+# COMMAND
+1. installation
+brew install mongodb 
+pip3 install django  
+pip3 install djongo  
+pip3 install django-widget-tweaks  
+
+2. usage
+cd env  
+source bin/activate  
+
+3. call cmd
+python3 manage.py shell  
+
+4. run
+python3 manage.py runserver  
+
+5. migrate (syncdb)  
+python3 manage.py migrate  
+
+6. quit   
+deactivate  
+
+7. startup(on Mac)
+cd env  
+source bin/activate  
+alias e="python3 manage.py"  
+alias c="clear"  
+e migrate  
+c  
+
+8. kill port(on Mac)
+lsof -i:[port-number]
+kill -9 [pid]
+
+9. drop database
+mongo [dbname] --eval "db.dropDatabase()"
+
+10. delete migrations (in root path)
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+
+
+
+
+
+# ISSUE
+1. in info.html difference between 
+ | <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css"> Error 404
+ | <link rel="stylesheet" type="text/css" href="/../../static/bootstrap-4.3.1/css/bootstrap.min.css"> OK
+
+# TODO
+
+ ## model
+   1. contribution model
+   2. extend user model
+   3. favorite model
+ ## view
+   1. 修正註冊後不會自動登入
+   2. 註冊時需檢查用戶名是否重複
+ ## controller
+  ### 註冊頁面
+    1. 頁面美化
+    2. 處理註冊名重複問題
+    3. 加上nav-bar
+  ### 登入頁面
+    
+  ### 用戶資料(帳號管理)
+    1. 頁面美化
+    2. 功能：user 對自己可管理
+    3. 功能：user 對別人可瀏覽
+  ### 其他(script)
+    1. nav-bar 美化
+    2. infonotfound 美化、更名
+    3. error 跳轉上一頁的btn
+ ## others
+   1. 部分檔案名修正(info, login, etc.)
+   2. 報告修正
+   3. 修改 catalog 檔案夾名
+   4. static 多於資料去除
+   5. logo 修正
+    
+
+# LOG
+
+ ## 2019/3/12
+    1. CRUD function
+    2. mongodb 測試
+ ## 2019/3/25
+    1. add gitignore
+    2. 更名部分資料夾
+ ## 2019/4/24
+    1. 部署至虛擬環境
+    2. 資料連接改為使用djongo API
+    3. user model 改採 native model.
+ ## 2019/4/26
+    1. 完成 login, register 功能
+ ## 2019/4/27
+    1. 完成 accounts/info/ 個別化登入
+    2. UI 微調
+    3. templates 覆用
+ ## 2019/4/28 
+    1. 更改為用forms.py 進行管理
+    2. 用 widget-tweaks 解耦 view 和 controller 的關係
+    3. 修正 urls.py 路徑
+ ## 2019/5/02
+    1. 加入.sh 自動初始化  
+ ## 2019/5/12
+    1. 頁面美化

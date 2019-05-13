@@ -1,43 +1,19 @@
-# installation
-brew install mongodb 
-pip3 install django  
-pip3 install djongo  
-pip3 install django-widget-tweaks  
-pip3 install Pillow
+# PRE-REQUIREMENTS
+1. Python 3.7
+2. Mongodb 4
 
-# usage
-cd env  
-source bin/activate  
+# HOW TO RUN
 
-# cmd
-python3 manage.py shell  
+1. create virtual env
 
-# run
-python3 manage.py runserver  
+2. install requirements.
+    pip install -r requirements.txt  
 
-# migrate (syncdb)  
-python3 manage.py migrate  
+3. start mongodb.
+    source start_mongo.sh  
 
-# quit   
-deactivate  
+4. start inverment.  
+    source start_env.sh
 
-# startup(on Mac)
-cd env  
-source bin/activate  
-alias e="python3 manage.py"  
-alias c="clear"  
-e migrate  
-c  
-
-# kill port(on Mac)
-lsof -i:<port-number>  
-kill -9 <pid>  
-
-# drop database
-mongo <dbname> --eval "db.dropDatabase()"
-
-# delete migrations (in root path)
-find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
-find . -path "*/migrations/*.pyc"  -delete
-
-
+5. import data.
+    source data_import.sh
