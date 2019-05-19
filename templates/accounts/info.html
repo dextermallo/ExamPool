@@ -2,15 +2,21 @@
 <html lang = "en">
     <head>
         <meta charset = "utf-8">
-        <title>Userinfo</title>
-		<link rel="stylesheet" href="/../../static/bootstrap-4.3.1/css/bootstrap.min.css">
-        <script src="/../../static/js/jquery-3.4.1.min.js"></script>
-        <script src="/../../static/bootstrap-4.3.1/js/bootstrap.min.js"></script>
-        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+        <title>ExamPool - 個人主頁 - {{ username }}</title>
+		
+        {% load static %}        
+        <link rel="stylesheet" href={% static "bootstrap-4.3.1/css/bootstrap.min.css" %}>
+        <link rel="stylesheet" href={% static "fontawesome-5.8.2/css/all.min.css" %}>
+        <link rel="stylesheet" href={% static "css/profile.css" %}>
+        
+        <script src= {% static "js/jquery-3.4.1.min.js" %}></script>
+        <script src= {% static "bootstrap-4.3.1/js/bootstrap.min.js" %}></script>
+        <script src = {% static "js/profile.js" %}></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
         {% if result == False %}
+            {% include 'nav.html' %}
             {% include 'error.html' %}
         {% else %}
             {% include 'nav.html' %}

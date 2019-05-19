@@ -30,6 +30,5 @@ urlpatterns = [
     path('department/<str:dpName>/', views.allSubject),
     path('department/<str:dpName>/<str:sbIndex>/', views.board),
     path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', views.article),
-
     path('department/<str:dpName>/<str:sbIndex>/edit/post', views.postArticle)
 ]

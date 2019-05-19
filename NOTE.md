@@ -1,4 +1,5 @@
 # updated 2019/4/28/13:25 by Dexter.
+
 # NOTED
 1. 導向路徑
 href = "accounts/logout/"  > /root/accounts/logout/
@@ -82,39 +83,21 @@ find . -path "*/migrations/*.pyc"  -delete
  | <link rel="stylesheet" type="text/css" href="/../../static/bootstrap-4.3.1/css/bootstrap.min.css"> OK
 
 # TODO
-
- ## model
-   1. contribution model
-   2. extend user model
-   3. favorite model
- ## view
-   1. 修正註冊後不會自動登入
-   2. 註冊時需檢查用戶名是否重複
- ## controller
-  ### 註冊頁面
-    1. 頁面美化
-    2. 處理註冊名重複問題
-    3. 加上nav-bar
-  ### 登入頁面
-    
-  ### 用戶資料(帳號管理)
-    1. 頁面美化
-    2. 功能：user 對自己可管理
-    3. 功能：user 對別人可瀏覽
-  ### 其他(script)
-    1. nav-bar 美化
-    2. infonotfound 美化、更名
-    3. error 跳轉上一頁的btn
- ## others
-   1. 部分檔案名修正(info, login, etc.)
-   2. 報告修正
-   3. 修改 catalog 檔案夾名
-   4. static 多於資料去除
-   5. logo 修正
-    
-
+   01. 擴展 user model.
+   02. 完成 user profile頁面.
+   03. 處理註冊名重複問題
+   04. 修正註冊後不會自動登入
+   05. 首頁內容
+   06. 各頁面美化
+   07. user 管理介面功能
+   08. error 頁面 nav bar
+   09. 抽離耦合css
+   10. 檔案名修正(info, login, etc.)
+   11. 修改 catalog 檔案夾名
+   12. static 多於資料去除
+   13. 小圖標
+   14. 頁面名稱
 # LOG
-
  ## 2019/3/12
     1. CRUD function
     2. mongodb 測試
@@ -131,7 +114,7 @@ find . -path "*/migrations/*.pyc"  -delete
     1. 完成 accounts/info/ 個別化登入
     2. UI 微調
     3. templates 覆用
- ## 2019/4/28 
+ ## 2019/4/28
     1. 更改為用forms.py 進行管理
     2. 用 widget-tweaks 解耦 view 和 controller 的關係
     3. 修正 urls.py 路徑
@@ -139,3 +122,21 @@ find . -path "*/migrations/*.pyc"  -delete
     1. 加入.sh 自動初始化  
  ## 2019/5/12
     1. 頁面美化
+ ## 2019/5/17
+    1. 整合美化註冊、登入頁面
+    2. 優化使用者資訊頁面
+    3. 修正部分static url
+    4. 優化.sh
+    5. 整合Note.md, TODO.md.
+    6. 刪除 static 不必要的檔案.
+ ## 2019/5/19
+    1. 修正 logo 大小錯誤
+    2. 新增 contribution 列表頁面、查詢功能、model
+    3. 新增django-mathfilters(0.4.0)，可在html中對數值進行運算
+    4. 新增 fontawesome(5.8.2).
+    5. 部分 UI 優化
+
+# IDEA
+1. 刷題
+2. npm
+3. jinja custom filter https://docs.djangoproject.com/en/dev/howto/custom-template-tags/

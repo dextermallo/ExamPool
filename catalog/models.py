@@ -55,7 +55,7 @@ class Article(models.Model):
     revise_date = models.DateField()
     good_count = models.IntegerField()
     bad_count = models.IntegerField()
-    author = models.IntegerField()
+    author = models.CharField(max_length=100)
     meta  = {'collection' : 'Article'}
 
 class Comment(models.Model):
@@ -66,7 +66,7 @@ class Comment(models.Model):
     revise_date = models.DateField()
     good_count = models.IntegerField()
     bad_count = models.IntegerField()
-    author = models.IntegerField()
+    author = models.CharField(max_length=100)
     child_comment_id = models.IntegerField()
     parent_comment_id = models.IntegerField()
     meta  = {'collection' : 'Comment'}

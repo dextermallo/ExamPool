@@ -1,73 +1,181 @@
-    <div class="container bootstrap snippet">
-        <div class="row">
-  		    <div class="col-sm-2">
-                <div class="text-center">
-                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                    <h6>Upload a different photo...</h6>
-                    <input type="file" class="text-center center-block file-upload">
+<div class="container profile">
+    <form method="post">
+        <div class = "row"> <!-- Profile image -->
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="photo_container">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="Avatar" class="photo profile-img rounded-circle">
+                        <label class="file photo_cover photo_cover_text" for = "btn_upload_img">Upload image</label>
+                        <input name = "btn_upload_img" id = "btn_upload_img" style = "display:none;" type = "file">
+                    </label>
                 </div>
-                <ul class="list-group">
-                    <li class="list-group-item text-muted">Activity<i class="fa fa-dashboard fa-1x"></i></li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-                </ul>
             </div>
-    	    <div class="col-sm-9">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#profile">Profile</a></li>
-                    <li><a data-toggle="tab" href="#messages">Contribution</a></li>
-                    <li><a data-toggle="tab" href="#settings">Favorite</a></li>
-                </ul>        
-          <div class="tab-content">
-            <div class="tab-pane active" id="profile">
-                <form class="form" action="##" method="post" id="registrationForm">
-                    <div class="form-group">      
-                        <div class="col-xs-6">
-                            <label for="phone"><h4>Username</h4></label>
-                            <input type="text" class="form-control" name="phone" id="phone" placeholder= {{username}} title="enter your phone number if any.">
-                        </div>
-                    </div>          
-                    <div class="form-group">
-                        <div class="col-xs-6">
-                            <label for="mobile"><h4>Mobile</h4></label>
-                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
-                        </div>
-                    </div>
-                    <div class="form-group">      
-                        <div class="col-xs-6">
-                            <label for="email"><h4>Email</h4></label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
-                        </div>
-                    </div>
-                    <div class="form-group">                          
-                        <div class="col-xs-6">
-                            <label for="email"><h4>Location</h4></label>
-                            <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
-                        </div>
-                    </div>
-                    <div class="form-group">      
-                        <div class="col-xs-6">
-                            <label for="password"><h4>Password</h4></label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
-                        </div>
-                    </div>
-                    <div class="form-group">                          
-                        <div class="col-xs-6">
-                            <label for="password2"><h4>Verify</h4></label>
-                            <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12">
-                            <br>
-                            <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                            <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                        </div>
-                    </div>
-                </form>
+        </div> <!-- Profile image end. -->
+        <div class="row"> <!-- Profile name -->
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="profile-head">
+                            <h5>
+                                {{username}}
+                            </h5>
+                            <h6>
+                                GO GO GO
+                            </h6>    
+                </div>
             </div>
-            <div class="tab-pane" id="messages"> </div>
-            <div class="tab-pane" id="settings"> </div>
+        </div> <!-- Profile name end. -->
+        <div class="row"> 
+            <div class="col-md-12"> 
+                <div class="profile-nav"> <!-- Profile nav-tabs. -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab">Setting</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#contribution" role="tab">Contribution</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab">Favorite</a>
+                        </li>
+                    </ul>
+                </div> <!-- Profile nav-tabs end. -->
+                <div class="tab-content profile-tab"> <!-- Tab content. -->
+                    <div class="tab-pane fade show active" id="setting">
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end input">
+                                <label for = "email">Email</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="email" class="form-control" name = "email" placeholder={{email}}>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end">
+                                <label for = "password">New Password</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="password" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 d-flex justify-content-end">
+                                <label for = "password_check">Verify</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="password" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="tab-pane fade" id="contribution">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4">
+                                <form action="#" method="get">
+                                    <div class="input-group md-form form-sm form-2 pl-0">
+                                        <input class="form-control my-0 py-1" id="system-search" name="q" placeholder="Search" required>
+                                        <div class="input-group-append"> 
+                                            <span class="input-group-text lime lighten-2"><i class="fas fa-search text-grey"></i></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12" style = "margin-top: 15px;">
+                                <table class="table table-list-search" id = "contribution-table">
+                                    <thead>
+                                        <tr>
+                                            <th>系所</th>
+                                            <th>標題</th>
+                                            <th>最後編輯日期</th>
+                                            <th>標籤</th>
+                                            <th>留言數</th>                                        
+                                            <th>推噓數</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if contribution == None %}
+                                            <p> You have no contribution yet.</p>
+                                        {% else %}
+                                        {% for contrib in contribution %}
+                                        <tr>
+                                            <td>{{ contrib.dp_abb }}</td>
+                                            <td>{{ contrib.title }}</td>
+                                            <td>{{ contrib.revise_date }}</td>
+                                            <td>
+                                            {% for label in contrib.tag_name %} 
+                                            <span class="badge badge-primary">{{label}}</span>
+                                            {% load mathfilters %}
+                                            {% endfor%}
+                                            </td>
+                                            <td>留言數</td>
+                                            <td>
+                                            {% if contrib.good_count > contrib.bad_count %}
+                                            <span class="badge badge-success">{{ contrib.good_count|sub:contrib.bad_count }}</span>
+                                            {% else %}
+                                            <span class="badge badge-danger">{{ contrib.bad_count|sub:contrib.good_count }}</span>
+                                            {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% endif %}                                        
+                                    </tbody>
+                                </table>   
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="favorite"> <!-- Tab favorite content.-->
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4">
+                                <form action="#" method="get">
+                                    <div class="input-group md-form form-sm form-2 pl-0">
+                                        <input class="form-control my-0 py-1" id="favorite-search" placeholder="Search" required>
+                                        <div class="input-group-append"> 
+                                            <span class="input-group-text"><i class="fas fa-search text-grey"></i></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12" style = "margin-top: 15px;">
+                                <table class="table favorite-table" id = "favorite-table">
+                                    <thead>
+                                        <tr>
+                                            <th>系所</th>
+                                            <th>標題</th>
+                                            <th>最後編輯日期</th>
+                                            <th>標籤</th>
+                                            <th>留言數</th>                                        
+                                            <th>推噓數</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if contribution == None %}
+                                            <p> you have no contribution yet.</p>
+                                        {% else %}
+                                        {% for contrib in contribution %}
+                                        <tr>
+                                            <td>{{ contrib.dp_abb }}</td>
+                                            <td>{{ contrib.title }}</td>
+                                            <td>{{ contrib.revise_date }}</td>
+                                            <td>
+                                            {% for label in contrib.tag_name %} 
+                                            <span class="badge badge-primary">{{label}}</span>
+                                            {% load mathfilters %}
+                                            {% endfor%}
+                                            </td>
+                                            <td>留言數</td>
+                                            <td>
+                                            {% if contrib.good_count > contrib.bad_count %}
+                                            <span class="badge badge-success">{{ contrib.good_count|sub:contrib.bad_count }}</span>
+                                            {% else %}
+                                            <span class="badge badge-danger">{{ contrib.bad_count|sub:contrib.good_count }}</span>
+                                            {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% endif %}                                        
+                                    </tbody>
+                                </table>   
+                            </div>
+                        </div>
+                    </div> <!-- Tab Favorite content end.-->
+                </div>
             </div>
-        </div>
-    </div>
+        </div> <!-- Profile nav-tabs end. -->
+    </form>
+</div>

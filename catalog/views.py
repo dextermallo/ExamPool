@@ -56,7 +56,8 @@ def logout(request):
 def userInfo(request, username):
     try:
         result = User.objects.get(username = username) 
-        print(result.date_joined, file=sys.stderr)
+        contribution = Article.objects.all().filter(author = username)
+        print(contribution, file=sys.stderr)
         ret = {
             'username': result.username,
             'email': result.email,
@@ -64,13 +65,13 @@ def userInfo(request, username):
             'icon': result.icon,
             'voting': result.voting,
             'favorite': result.favorite,
-            'contribution': result.contribution,
-            'registerDate': result.date_joined
-        
+            'contribution': contribution,
         }
-        
     except:
         result = False
+        ret = {
+            'result': False
+        }
     return render(request, 'accounts/info.html', ret)
 
 def allDepartment(request):
