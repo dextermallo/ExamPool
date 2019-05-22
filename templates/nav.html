@@ -1,11 +1,13 @@
 {% load static %}        
 <link rel="stylesheet" href={% static "css/nav-bar.css" %}>
 <div id = "navbar" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-black border-bottom shadow-sm" >
-    <div class = "my-0 mr-md-auto font-weight-normal"><a href = "./index.html"><img class="my-0 mr-md-auto font-weight-normal" id = "logo" src= {% static "img/nav-icon.png" %}></img></a></div>
-    
+    <div class = "my-0 mr-md-auto font-weight-normal">
+        <a href = "/index/"><img class="my-0 mr-md-auto font-weight-normal" id = "logo" src= {% static "img/nav-icon.png" %}></img></a>
+    </div>
+
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 navitem" href="/department">學系列表</a>
-        <a class="p-2 navitem" href="#">便秘啦</a>
+        <a class="p-2 navitem" href="#">練習</a>
         <a class="p-2 navitem" href="#">沒東西放</a>
     </nav>
     

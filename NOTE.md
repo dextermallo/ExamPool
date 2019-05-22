@@ -90,13 +90,12 @@ find . -path "*/migrations/*.pyc"  -delete
    05. 首頁內容
    06. 各頁面美化
    07. user 管理介面功能
-   08. error 頁面 nav bar
-   09. 抽離耦合css
    10. 檔案名修正(info, login, etc.)
    11. 修改 catalog 檔案夾名
-   12. static 多於資料去除
-   13. 小圖標
-   14. 頁面名稱
+   12. static 多餘資料去除
+   16. 新增 comment 於個人頁面顯示
+   17. 修改register.html (耦合)
+   
 # LOG
  ## 2019/3/12
     1. CRUD function
@@ -135,7 +134,12 @@ find . -path "*/migrations/*.pyc"  -delete
     3. 新增django-mathfilters(0.4.0)，可在html中對數值進行運算
     4. 新增 fontawesome(5.8.2).
     5. 部分 UI 優化
-
+ ## 2019/5/20
+    1. 頁面小圖標
+    2. 抽離耦合css
+    3. 修正部分頁面名稱
+    4. 修正 profile favorite 查詢功能
+ 
 # IDEA
 1. 刷題
 2. npm

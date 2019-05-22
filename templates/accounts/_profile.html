@@ -134,39 +134,28 @@
                             <div class="col-md-12" style = "margin-top: 15px;">
                                 <table class="table favorite-table" id = "favorite-table">
                                     <thead>
-                                        <tr>
+                                        <tr>                                            
                                             <th>系所</th>
                                             <th>標題</th>
-                                            <th>最後編輯日期</th>
-                                            <th>標籤</th>
-                                            <th>留言數</th>                                        
-                                            <th>推噓數</th>
+                                            <th>作者</th>
+                                            <th>標籤</th>                                        
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody>                                    
                                         {% if contribution == None %}
-                                            <p> you have no contribution yet.</p>
+                                            <p> you have no favorite yet.</p>
                                         {% else %}
                                         {% for contrib in contribution %}
-                                        <tr>
-                                            <td>{{ contrib.dp_abb }}</td>
-                                            <td>{{ contrib.title }}</td>
-                                            <td>{{ contrib.revise_date }}</td>
-                                            <td>
-                                            {% for label in contrib.tag_name %} 
-                                            <span class="badge badge-primary">{{label}}</span>
-                                            {% load mathfilters %}
-                                            {% endfor%}
-                                            </td>
-                                            <td>留言數</td>
-                                            <td>
-                                            {% if contrib.good_count > contrib.bad_count %}
-                                            <span class="badge badge-success">{{ contrib.good_count|sub:contrib.bad_count }}</span>
-                                            {% else %}
-                                            <span class="badge badge-danger">{{ contrib.bad_count|sub:contrib.good_count }}</span>
-                                            {% endif %}
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{ contrib.dp_abb }}</td>
+                                                <td>{{ contrib.title }}</td>
+                                                <td>{{ contrib.author }}</td>                                            
+                                                <td>
+                                                {% for label in contrib.tag_name %} 
+                                                <span class="badge badge-primary">{{label}}</span>                                            
+                                                {% endfor%}
+                                                </td>                                            
+                                            </tr>
                                         {% endfor %}
                                         {% endif %}                                        
                                     </tbody>

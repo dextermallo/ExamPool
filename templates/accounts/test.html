@@ -1,0 +1,23 @@
+<script>
+  $(function() {
+    $('.register-submit').on('click', function() {
+      $.ajax({
+        url  : "<?=base_url('accounts/ajaxChkRepeatAccount')?>",
+        type : 'POST',
+        dataType : 'HTML',
+        data : {
+          account: $('#inputAccount').val()
+        },
+        success: function(res) {
+          if(res=='1') {
+            alert('申請帳號重複，請輸入其他帳號');
+          } else {
+            $('.register-submit2').click();
+          }
+        }
+      });
+    });
+  });
+  </script>
+  <button type="button" class="register-submit">送出</button>
+  <button type="submit" class="register-submit2 hide"></button>

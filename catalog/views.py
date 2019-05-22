@@ -8,6 +8,8 @@ from .forms import *
 from .models import *
 from django.db.models import Max
 from django.contrib.auth import get_user_model
+from collections import Counter
+
 def index(request):
     return render(request, 'index.html',locals())
 
@@ -56,8 +58,13 @@ def logout(request):
 def userInfo(request, username):
     try:
         result = User.objects.get(username = username) 
-        contribution = Article.objects.all().filter(author = username)
-        print(contribution, file=sys.stderr)
+        articles = Article.objects.all().filter(author = username)
+        reply_count = {}
+        for article in articles:
+            comments = Comment.objects.all().filter(article_id = article.qid)         
+            reply_count[article.qid] = len(Counter(comments)) if comments is not None else 0
+        
+        
         ret = {
             'username': result.username,
             'email': result.email,
@@ -65,8 +72,10 @@ def userInfo(request, username):
             'icon': result.icon,
             'voting': result.voting,
             'favorite': result.favorite,
-            'contribution': contribution,
+            'contribution': articles,
+            'reply': reply_count,
         }
+        print(reply_count, file=sys.stderr)
     except:
         result = False
         ret = {
@@ -112,6 +121,7 @@ def article(request, dpName, sbIndex, articleId):
     return render(request, 'article.html', context)
 
 def postArticle(request, dpName, sbIndex):
+
     if request.method == 'POST':
         form = articleForm(request.POST)
         if form.is_valid():
