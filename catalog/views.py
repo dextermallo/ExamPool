@@ -6,6 +6,7 @@ from django.template import loader, Context, RequestContext
 import sys
 from .forms import *
 from .models import *
+from users.models import *
 from django.db.models import Max
 from django.contrib.auth import get_user_model
 from collections import Counter
@@ -17,65 +18,65 @@ def login(request):
     
     if request.user.is_authenticated: 
         return HttpResponseRedirect('/index/')
-
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    
-    user = auth.authenticate(username=username, password=password)
-
-    if user is not None and user.is_active:
-        auth.login(request, user)
-        return HttpResponseRedirect('/index/')
-    else:
-        return render(request, 'accounts/login.html') 
-
-def register(request):
     
     if request.method == 'POST':
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
+        user = User.authenticate(username=username, password=password)
+        print(user.username, file=sys.stderr)
+        print(user.password, file=sys.stderr)
+        if user is not None and user.is_active:
+            auth.login(request, user)
+            return HttpResponseRedirect('/index/')
+        else: # TODO: Add account verify.
+            return render(request, 'accounts/login.html') 
+    else: # via GET method to return page.
+        return render(request, 'accounts/login.html') 
+
+def register(request):
+    if request.user.is_authenticated: 
+        return HttpResponseRedirect('/index/')
+
+    if request.method == 'POST':
+        username = request.POST.get('username', '')
         email = request.POST.get('email', '')
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        password = request.POST.get('password', '')
         
-        user = User.create_user(username = username, password = password, email = 'test@mail.com', icon = "", voting = 0, favorite = "", contribution= "")
-        user.save()
+        user = User.create_user(username = username, email = email, password = password, first_name = first_name, last_name = last_name)
+
         #return render(request, '/accounts/login/', locals())
         ret = {
-            'username': username,
+            'username': email,
             'password': password
         }
         return HttpResponseRedirect('/accounts/login/')
     else:
-        ret = {
-            'username': request.GET.get('username', ''),
-            'password': request.GET.get('password', '')
-        }
         return render(request, 'accounts/login.html', ret)
     
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/index/')
 
-def userInfo(request, username):
+def user_profile(request, username):
     try:
         result = User.objects.get(username = username) 
         articles = Article.objects.all().filter(author = username)
+        print(articles, file=sys.stderr)
         reply_count = {}
         for article in articles:
             comments = Comment.objects.all().filter(article_id = article.qid)         
             reply_count[article.qid] = len(Counter(comments)) if comments is not None else 0
         
-        
         ret = {
             'username': result.username,
-            'email': result.email,
-            'password': result.password,
-            'icon': result.icon,
-            'voting': result.voting,
-            'favorite': result.favorite,
+            'email': result.email,            
+            'first_name': result.first_name,
+            'last_name': result.last_name,            
             'contribution': articles,
             'reply': reply_count,
-        }
-        print(reply_count, file=sys.stderr)
+        }    
     except:
         result = False
         ret = {
@@ -146,3 +147,4 @@ def postArticle(request, dpName, sbIndex):
         'form' : form
     }
     return render(request, 'post.html', context)
+

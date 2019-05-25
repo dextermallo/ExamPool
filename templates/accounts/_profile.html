@@ -1,4 +1,4 @@
-<div class="container profile">
+<div class="container wrap">
     <form method="post">
         <div class = "row"> <!-- Profile image -->
             <div class="col-md-12 d-flex justify-content-center">
@@ -22,6 +22,7 @@
                 </div>
             </div>
         </div> <!-- Profile name end. -->
+    </form>
         <div class="row"> 
             <div class="col-md-12"> 
                 <div class="profile-nav"> <!-- Profile nav-tabs. -->
@@ -36,34 +37,45 @@
                             <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab">Favorite</a>
                         </li>
                     </ul>
-                </div> <!-- Profile nav-tabs end. -->
+                </div> <!-- Profile nav-tabs end. -->        
                 <div class="tab-content profile-tab"> <!-- Tab content. -->
+                    
                     <div class="tab-pane fade show active" id="setting">
-                        <div class="row">
-                            <div class="col-md-4 d-flex justify-content-end input">
-                                <label for = "email">Email</label>
+                        <form action="/accounts/update_user_profile/" method="POST">
+                        <div class = "row justify-content-center">
+                            <div class="col-md-2 mat-div">                    
+                                <label for = "first_name" class = "mat-label">First Name</label>
+                                <input type="text" class="mat-input" id="first_name" name = "first_name" value= {{first_name}}>
+                            </div>  
+                            <div class = "col-md-1"></div>                                                              
+                            <div class="col-md-2 mat-div">                    
+                                <label for = "last_name" class = "mat-label">Last Name</label>
+                                <input type= "text" class = "mat-input" id="last_name" name = "last_name" value= {{last_name}}>
+                            </div>  
+                        </div>
+                        <div class = "row justify-content-center">
+                            <div class = "col-md-5 mat-div">  
+                                <label for = "email" class = "mat-label">Email</label>
+                                <input type="email" class="mat-input" name = "email" value={{email}}>                                                                        
                             </div>
-                            <div class="col-md-4">
-                                <input type="email" class="form-control" name = "email" placeholder={{email}}>
+                        </div>                       
+                        <div class = "row justify-content-center">
+                            <div class="col-md-2 mat-div">                    
+                                <label for = "password" class = "mat-label">Password</label>
+                                <input type="password" class = "mat-input" id = "password" name = "password">
+                            </div>  
+                            <div class = "col-md-1"></div>
+                            <div class="col-md-2 mat-div">
+                                <label for = "password_check" class = "mat-label">Verify</label>
+                                <input type="password" class= "mat-input" id="password_check" name = "password_check">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 d-flex justify-content-end">
-                                <label for = "password">New Password</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="password" class="form-control" id="location" placeholder="somewhere" title="enter a location">
-                            </div>
+                        <div class = "row justify-content-center">
+                            <input type="submit" class="btn btn-success tab-submit-btn" value="提交">
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 d-flex justify-content-end">
-                                <label for = "password_check">Verify</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="password" class="form-control" id="location" placeholder="somewhere" title="enter a location">
-                            </div>
-                        </div>        
+                        </form>                        
                     </div>
+                    
                     <div class="tab-pane fade" id="contribution">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-4">
@@ -77,6 +89,9 @@
                                 </form>
                             </div>
                             <div class="col-md-12" style = "margin-top: 15px;">
+                                {% if contribution == None %}
+                                    <p> You have no contribution yet.</p>
+                                {% else %}
                                 <table class="table table-list-search" id = "contribution-table">
                                     <thead>
                                         <tr>
@@ -88,10 +103,7 @@
                                             <th>推噓數</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {% if contribution == None %}
-                                            <p> You have no contribution yet.</p>
-                                        {% else %}
+                                    <tbody> 
                                         {% for contrib in contribution %}
                                         <tr>
                                             <td>{{ contrib.dp_abb }}</td>
@@ -112,10 +124,10 @@
                                             {% endif %}
                                             </td>
                                         </tr>
-                                        {% endfor %}
-                                        {% endif %}                                        
+                                        {% endfor %}                                        
                                     </tbody>
                                 </table>   
+                                {% endif %}                                        
                             </div>
                         </div>
                     </div>
@@ -132,6 +144,9 @@
                                 </form>
                             </div>
                             <div class="col-md-12" style = "margin-top: 15px;">
+                                {% if contribution == None %}
+                                    <p> you have no favorite yet.</p>
+                                {% else %}
                                 <table class="table favorite-table" id = "favorite-table">
                                     <thead>
                                         <tr>                                            
@@ -141,10 +156,7 @@
                                             <th>標籤</th>                                        
                                         </tr>
                                     </thead>
-                                    <tbody>                                    
-                                        {% if contribution == None %}
-                                            <p> you have no favorite yet.</p>
-                                        {% else %}
+                                    <tbody>                                                                    
                                         {% for contrib in contribution %}
                                             <tr>
                                                 <td>{{ contrib.dp_abb }}</td>
@@ -156,15 +168,27 @@
                                                 {% endfor%}
                                                 </td>                                            
                                             </tr>
-                                        {% endfor %}
-                                        {% endif %}                                        
+                                        {% endfor %}                                    
                                     </tbody>
                                 </table>   
+                                {% endif %}                                        
                             </div>
                         </div>
                     </div> <!-- Tab Favorite content end.-->
                 </div>
             </div>
         </div> <!-- Profile nav-tabs end. -->
-    </form>
+    
 </div>
+
+<script>
+    $(".mat-input").focus(function(){
+        $(this).parent().addClass("is-active is-completed");
+    });
+
+    $(".mat-input").focusout(function(){
+        if($(this).val() === "")
+        $(this).parent().removeClass("is-completed");
+        $(this).parent().removeClass("is-active");
+    })
+</script>

@@ -1,12 +1,22 @@
 body{
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    background: -webkit-linear-gradient(left, #00fd2a, #059936);
+    font:600 16px/18px 'Open Sans',sans-serif;
+    background:url('../img/answer-sheet-with-pencil.jpg') fixed;
+	background-size: cover;
 }
 
-.profile_container {
-    position: relative;
-    width: 200px;
-    height: 200px;
-  }
+.wrap{
+	width: 100%;
+	margin:auto;
+	max-width:90%;
+	min-height:60%;
+	position:relative;
+    margin-top: 3%;
+    background-size: cover;
+    padding: 1%;
+    background-color: rgba(255,255,255,0.92);
+	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
 
 .photo {
     opacity: 1;
@@ -44,11 +54,12 @@ body{
 }
  
 .profile{
-    padding: 3%;
-    margin-top: 3%;
-    margin-bottom: 3%;
+    width:70%;
+    padding: 1%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     border-radius: 0.5rem;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.7);
 }
 
 .profile-img img{
@@ -83,7 +94,7 @@ body{
     color: #0062cc;
 }
 .profile-nav .nav-tabs{
-    margin-bottom:5%;
+    margin-bottom:1%;
 }
 .profile-nav .nav-tabs .nav-link{
     font-weight:600;
@@ -122,4 +133,77 @@ body{
 
 .tab-content-input {
     margin: 10px;
+}
+
+.shadow-textarea textarea.form-control::placeholder {
+    font-weight: 300;
+}
+.shadow-textarea textarea.form-control {
+    padding-left: 0.8rem;
+}
+
+.mat-label {
+    font-size: 16px;
+    transform: translateY(25px);
+    color: #0879f3;
+    transition: all 0.2s;
+    padding: 0px 0px 10px 0px;
+}
+
+.mat-input {
+    position: relative;
+    background: transparent;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 15px 0px 5px;
+    font-size: 16px;
+
+}
+
+.mat-input::placeholder {
+    color: #000000;
+}
+
+.mat-div {
+    padding: 10px 0px 0px 0px;
+    position: relative;
+    width: 100%;
+    
+}
+
+.mat-div:after, .mat-div:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color:#06973e; 
+    bottom: 0;
+    left: 0;
+    transition: all 0.2s;
+    
+}
+
+.mat-div::after {
+    background-color: #41ec83;
+    transform: scaleX(0);
+}
+
+.is-active::after {
+    transform: scaleX(1);
+}
+
+.is-active .mat-label {
+    color: rgb(0, 0, 0);
+}
+
+.is-completed .mat-label {
+    font-size: 12px;
+    transform: translateY(0);
+}
+
+.tab-submit-btn {
+    
+    margin-top: 40px
 }

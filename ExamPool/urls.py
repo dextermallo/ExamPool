@@ -17,18 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from catalog import views
+import catalog.views
+import users.views
 urlpatterns = [
 
-    path('index/',views.index),
-    path('accounts/login/',views.login),
-    path('accounts/register/',views.register),
-    path('accounts/logout/', views.logout),
+    path('index/',catalog.views.index),
+    path('accounts/login/',catalog.views.login),
+    path('accounts/register/',catalog.views.register),
+    path('accounts/logout/', catalog.views.logout),
     path('admin/', admin.site.urls),
-    path('accounts/info/<str:username>/', views.userInfo),
-    path('department/', views.allDepartment),
-    path('department/<str:dpName>/', views.allSubject),
-    path('department/<str:dpName>/<str:sbIndex>/', views.board),
-    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', views.article),
-    path('department/<str:dpName>/<str:sbIndex>/edit/post', views.postArticle)
+    path('accounts/info/<str:username>/', catalog.views.user_profile),
+    path('department/', catalog.views.allDepartment),
+    path('department/<str:dpName>/', catalog.views.allSubject),
+    path('department/<str:dpName>/<str:sbIndex>/', catalog.views.board),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', catalog.views.article),
+    path('department/<str:dpName>/<str:sbIndex>/edit/post', catalog.views.postArticle),
+    path('accounts/update_user_profile/', users.views.update_user_profile)
 ]

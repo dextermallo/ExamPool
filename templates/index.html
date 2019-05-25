@@ -6,20 +6,20 @@
         
         {% load static %}
         <!-- load favicon. -->
-        <link rel="icon" href={ % static "img/favicon.ico" %} type="image/x-icon"/>
-        <link rel="shortcut icon" href={ % static "img/favicon.ico" %} type="image/x-icon"/>
+        <link rel="icon" href={% static "img/favicon.ico" %} type="image/x-icon"/>
+        <link rel="shortcut icon" href={% static "img/favicon.ico" %} type="image/x-icon"/>
 
         <!-- load css. -->
-        <link rel="stylesheet" href={% static "bootstrap-4.3.1/css/bootstrap.min.css" %}>
-        <link rel="stylesheet" href={% static "fontawesome-5.8.2/css/all.min.css" %}>
-        <link rel="stylesheet" href={% static "css/error.css" %}>
+        <link rel="stylesheet" href= {% static "bootstrap-4.3.1/css/bootstrap.min.css" %}>
+        <link rel="stylesheet" href= {% static "fontawesome-5.8.2/css/all.min.css" %}>
+        <link rel="stylesheet" href= {% static "css/error.css" %}>
 
         <!-- load js. -->
-        <script src={ % static "js/jquery-3.4.1.min.js" %}></script>
-        <script src={ % static "bootstrap-4.3.1/js/bootstrap.min.js" %}></script>
+        <script src= {% static "js/jquery-3.4.1.min.js" %}></script>
+        <script src= {% static "bootstrap-4.3.1/js/bootstrap.min.js" %}></script>
     </head>
     
     <body>
-        {% include 'nav.html' %}
+        {% include 'nav.html' %}      
     </body>
 </html>

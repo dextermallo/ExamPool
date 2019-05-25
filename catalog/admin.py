@@ -6,9 +6,6 @@ from .models import *
 class DepartmentAdmin(admin.ModelAdmin):
     exclude = ['sb_name']
 
-admin.site.register(User, UserAdmin)
 admin.site.register(Comment)
 admin.site.register(Subject)
 admin.site.register(Department, DepartmentAdmin)
-
-

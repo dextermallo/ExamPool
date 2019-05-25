@@ -6,4 +6,3 @@ find . -path "*/migrations/*.pyc"  -delete
 
 # run restart_mongo.sh first.
 mongo ExamPool --eval "db.dropDatabase()"
-

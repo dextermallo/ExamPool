@@ -73,15 +73,6 @@ mongo [dbname] --eval "db.dropDatabase()"
 find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 find . -path "*/migrations/*.pyc"  -delete
 
-
-
-
-
-# ISSUE
-1. in info.html difference between 
- | <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css"> Error 404
- | <link rel="stylesheet" type="text/css" href="/../../static/bootstrap-4.3.1/css/bootstrap.min.css"> OK
-
 # TODO
    01. 擴展 user model.
    02. 完成 user profile頁面.

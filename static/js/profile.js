@@ -101,4 +101,6 @@ $(document).ready(function() {
              tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">No entries found.</td></tr>');
          }
      });
+
+    
 });

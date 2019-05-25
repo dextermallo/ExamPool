@@ -2,35 +2,6 @@ from djongo import models
 from django.contrib.auth.models import AbstractUser, PermissionsMixin   
 from datetime import datetime
 
-class User(AbstractUser):
-    # abstract
-    # username, password, email.
-
-    icon = models.CharField(max_length=100)
-    voting = models.IntegerField()
-    favorite = models.CharField(max_length=500)
-    contribution = models.CharField(max_length=100)
-    
-    class Meta(AbstractUser.Meta):
-        pass
-    
-    def create_user(username, password, email, icon, voting, favorite, contribution):
-        if not password:
-            raise ValueError('missing password')
-        cur_time = datetime.now()
-        user = User(username = username, email = email, icon = icon, voting = voting, favorite = favorite, contribution = contribution)
-        user.set_password(password)
-        user.save()
-        return user
-
-    def create_superuser(self, username, email, password):
-        user = self.create_user(username, email, password, "icon", 0, "", "")
-        user.is_staff = True
-        user.is_active = True
-        user.is_superuser = True
-        user.save()
-        return user
-
 class Subject(models.Model):
     dp_name = models.CharField(max_length=100)
     short_name = models.CharField(max_length=100)
