@@ -1,11 +1,11 @@
 <div class="container wrap">
-    <form method="post">
+    <form action = "/accounts/update_user_icon/" method="POST" enctype="multipart/form-data" id = "form-update-user-icon">
         <div class = "row"> <!-- Profile image -->
             <div class="col-md-12 d-flex justify-content-center">
-                <div class="photo_container">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt="Avatar" class="photo profile-img rounded-circle">
-                        <label class="file photo_cover photo_cover_text" for = "btn_upload_img">Upload image</label>
-                        <input name = "btn_upload_img" id = "btn_upload_img" style = "display:none;" type = "file">
+                <div class="photo_container"> 
+                    <img src= "/{{ icon }}" alt="Avatar" class="photo profile-img rounded-circle">
+                        <label class="file photo_cover photo_cover_text" for = "image">Upload image</label>
+                        <input name = "image" id = "image" style = "display:none;" type = "file">
                     </label>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                                 {{username}}
                             </h5>
                             <h6>
-                                GO GO GO
+                                {{ icon }}
                             </h6>    
                 </div>
             </div>
@@ -38,8 +38,7 @@
                         </li>
                     </ul>
                 </div> <!-- Profile nav-tabs end. -->        
-                <div class="tab-content profile-tab"> <!-- Tab content. -->
-                    
+                <div class="tab-content profile-tab"> <!-- Tab content. -->                
                     <div class="tab-pane fade show active" id="setting">
                         <form action="/accounts/update_user_profile/" method="POST">
                         <div class = "row justify-content-center">
@@ -56,7 +55,7 @@
                         <div class = "row justify-content-center">
                             <div class = "col-md-5 mat-div">  
                                 <label for = "email" class = "mat-label">Email</label>
-                                <input type="email" class="mat-input" name = "email" value={{email}}>                                                                        
+                                <input type="text" class="mat-input" name = "email" value={{email}}>                                                                        
                             </div>
                         </div>                       
                         <div class = "row justify-content-center">
@@ -191,4 +190,8 @@
         $(this).parent().removeClass("is-completed");
         $(this).parent().removeClass("is-active");
     })
+
+    $("#image").change(function() {
+            $("#form-update-user-icon").submit();
+        })
 </script>

@@ -48,21 +48,25 @@ class User(AbstractUser):
     def set_password(self, raw_password):
         return super().set_password(raw_password)
 
-    def update_profile(email, first_name, last_name, password):
-        user.username = username
-        user.email = email
-        user.first_name = first_name
-        user.last_name = last_name
-        user.set_password(password)
+    def update_profile(username, email, first_name, last_name, password):
+        User.objects.filter(username=username).update(email=email,first_name=first_name,last_name=last_name,password=password)
+        
 
 class Icon(models.Model):
-    
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    icon = models.ImageField(upload_to=None, height_field=400, width_field=400, max_length=None)
+    icon = models.ImageField(upload_to='media/user_icon/', max_length=None) 
+
+    def create_icon(user, icon):
+        icon = Icon(user, icon)
+        icon.save()
+    
+    def update_icon(user, icon):
+        Icon.obejcts.filter(pk=user).update(icon=icon)
 
 class Contribution(models.Model):
     user = models.OneToOneField(
@@ -98,3 +102,4 @@ class Voting(models.Model):
     def register_user(user):
         voting = Voting(user, 0)
         voting.save()
+

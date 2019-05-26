@@ -19,18 +19,24 @@ from django.urls import path
 from django.conf.urls import url, include
 import catalog.views
 import users.views
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
 
     path('index/',catalog.views.index),
-    path('accounts/login/',catalog.views.login),
-    path('accounts/register/',catalog.views.register),
-    path('accounts/logout/', catalog.views.logout),
+    path('accounts/login/',users.views.login),
+    path('accounts/register/',users.views.register),
+    path('accounts/logout/', users.views.logout),
     path('admin/', admin.site.urls),
-    path('accounts/info/<str:username>/', catalog.views.user_profile),
+    path('accounts/info/<str:username>/', users.views.user_profile),
     path('department/', catalog.views.allDepartment),
     path('department/<str:dpName>/', catalog.views.allSubject),
     path('department/<str:dpName>/<str:sbIndex>/', catalog.views.board),
     path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', catalog.views.article),
     path('department/<str:dpName>/<str:sbIndex>/edit/post', catalog.views.postArticle),
-    path('accounts/update_user_profile/', users.views.update_user_profile)
-]
+    path('accounts/update_user_profile/', users.views.update_user_profile),
+    path('accounts/update_user_icon/', users.views.update_user_icon),
+    
+]   
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
