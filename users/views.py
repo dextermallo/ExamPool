@@ -8,34 +8,6 @@ from django.contrib import auth
 from django.template import loader, Context, RequestContext
 from collections import Counter
 
-def update_user_profile(request):
-
-    if request.user.is_authenticated:
-        username = request.user.username
-        first_name = request.POST.get('first_name', '')
-        last_name = request.POST.get('last_name', '')
-        email = request.POST.get('email', '')
-        password = request.POST.get('password', '')
-        User.update_profile(username, email, first_name, last_name, password)
-
-        return HttpResponseRedirect('/index/')
-    else:
-        return render(request, '/index/')
-
-def update_user_icon(request):
-	if (request.user.is_authenticated) & (request.method == 'POST'):		
-		form = UserImageForm(request.POST, request.FILES)
-		if form.is_valid():
-			if Icon.objects.filter(pk=request.user) is not None:
-				Icon.create_icon(request.user.id, form.cleaned_data['image'])
-			else:
-				Icon.objects.filter(pk=request.user.id).update(icon=form.cleaned_data['image'])
-			return HttpResponseRedirect('/accounts/info/' + request.user.username)
-
-	else:	
-		form = UserImageForm()
-		return render(request, 'index.html', locals())
-
 
 def login(request):
     
@@ -88,7 +60,6 @@ def user_profile(request, username):
 		articles = Article.objects.all().filter(author = username)
 		print('========================', file=sys.stderr)
 		icon = Icon.objects.get(user = request.user.id)
-		print("test", file=sys.stderr)
 		print(str(icon.icon.url), file=sys.stderr)
 		print('========================', file=sys.stderr)
 		reply_count = {}
@@ -104,6 +75,7 @@ def user_profile(request, username):
 			'contribution': articles,
 			'reply': reply_count,
 			'icon': icon.icon.url,
+            'comments': None,
 		}    
 		
 	except:
@@ -112,3 +84,31 @@ def user_profile(request, username):
 		}
 		print('Except', file=sys.stderr)
 	return render(request, 'accounts/info.html', ret)
+
+def update_user_profile(request):
+
+    if request.user.is_authenticated:
+        username = request.user.username
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        email = request.POST.get('email', '')
+        password = request.POST.get('password', '')
+        User.update_profile(username, email, first_name, last_name, password)
+
+        return HttpResponseRedirect('/index/')
+    else:
+        return render(request, '/index/')
+
+def update_user_icon(request):
+	if (request.user.is_authenticated) & (request.method == 'POST'):		
+		form = UserImageForm(request.POST, request.FILES)
+		if form.is_valid():
+			if Icon.objects.filter(pk=request.user) is not None:
+				Icon.create_icon(request.user.id, form.cleaned_data['image'])
+			else:
+				Icon.objects.filter(pk=request.user.id).update(icon=form.cleaned_data['image'])
+			return HttpResponseRedirect('/accounts/info/' + request.user.username)
+
+	else:	
+		form = UserImageForm()
+		return render(request, 'index.html', locals())

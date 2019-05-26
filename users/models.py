@@ -102,4 +102,3 @@ class Voting(models.Model):
     def register_user(user):
         voting = Voting(user, 0)
         voting.save()
-

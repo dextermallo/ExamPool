@@ -21,19 +21,5 @@
     
     <body>
         {% include 'nav.html' %}  
-        <form action="/accounts/update_user_icon/" method="POST" enctype="multipart/form-data" id = "form1">
-            <p>
-                <input id="image" type="file" class="" name="image">
-            </p>
-            <input type="submit" value="Submit" />
-        </form>
     </body>
 </html>
-<script type="text/javascript">
-    $(function() {
-        
-        $("#image").change(function() {
-            $("#form1").submit();
-        })
-    })
-</script>
