@@ -3,28 +3,86 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
         <title>Index</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+        {% load static  %}
+        <script type="text/javascript" src={% static "js/board.js" %}></script>
+        <link rel="stylesheet" type="text/css" href={% static "css/board.css" %}>
     </head>
     <body>
         {% include 'nav.html' %}
-        <div>
+        
+        <img class = "bg-img" src = {% static "img/board_bg.jpg" %}></img>
+        <div class = "container">
+
             <div class = "container text-right">
+                {% if user.is_authenticated %}
                     <a href = "edit/post" class = "btn btn-success">
                         發布問題
                     </a>
+                {% endif %}
             </div>
-            
-            <div class = "container text-center">
-                <div class = "justify-content-center w-100">
-                    {% for article in Article  %}
-                        <a href = {{article.qid}} class = "btn btn-success w-50 mt-3">
-                            {{article.title}}
-                        </a>
-                    {% endfor %}
+
+            <div class="list-group">
+                {% for article in Article  %}
+                    {% if article.exist %}
+                        <div class = "list-group-item mb-1 mt-1 bg-dark text-white row-bg">
+                            <div class = "row">
+                                <div class = "label text-center text-dark bg-white rounded col-2 border-right border-dark">
+                                    {% if article.tag_name.0 %}
+                                        {{article.tag_name.0}}
+                                    {% else %}
+                                        new post
+                                    {% endif %}
+                                </div>
+                                <a href="{{article.id}}">
+                                    <div class = "col-sm text-white underlined underlined--thick">
+                                        {{article.title}}
+                                    </div>
+                                </a>
+                                <div class = "time col-sm text-white text-right">
+                                    {{article.revise_time}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="select-page">
+            <div class="page-wrapper">
+                <div class = "arrow">
+                    <div class = "page-hover-stick-left"></div>
+                    <a href="javascript:;"><div class="page-prev"></div></a>
+                    <div class = "page-hover-stick-right"></div>
+                </div>
+
+                <a class="page-numbers" href="javascript:;">1</a>
+                <a class="page-numbers page-current">2</a>
+                <a class="page-numbers" href="javascript:;">3</a>
+                <div class = "arrow">
+                    <div class = "page-hover-stick-left"></div>
+                    <a href="javascript:;"><div class="page-next" href="javascript:;"></div></a>
+                    <div class = "page-hover-stick-right"></div>
+                </div>
+            </div>
+        </div>
+        <div class = "select-page show-goto">．<b>．．．</b>．</div>
+
+        <div class = "goto-wrapper">
+            <div class = "page-goto from-left">
+                <input class = "page-goto page-input text-center" placeholder="GOTOPAGE">
+            </div>
+        </div>
+
+        <div class = "side-menu-container">
+            <div class = "side-menu-option">
+                Search Tag
             </div>
         </div>
     </body>

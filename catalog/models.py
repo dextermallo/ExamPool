@@ -1,61 +1,38 @@
 from djongo import models
+from django.contrib.auth.models import AbstractUser, PermissionsMixin   
+from datetime import datetime
 
-from mongoengine import *
-
-connect('CRUD', host = '127.0.0.1', port = 27017)
-
-class user(Document):
-    idNumber = StringField()
-    name = StringField()
-    age = StringField()
-    mailbox = StringField()
-    power = StringField()
-    password = StringField()
-
-    meta = {'collection': 'user'}
-
-class Block(Document):
-    Department = StringField()
-    Subject = ListField(StringField())
-    Src = StringField()
-    meta = {'collection': 'Block'}
-
-class Subject(Document):
-    dp_name = StringField()
-    short_name = StringField()
-    subjects = ListField(StringField())
-    meta  = {'collection' : 'Subject'}
-
-class Department(Document):
-    dp_name = StringField()
-    dp_abb = StringField()
-    sb_name = ListField(StringField())
+class Department(models.Model):
+    dp_name = models.CharField(max_length=100)
+    dp_abb = models.CharField(max_length=100)
+    sb_name = models.ListField(models.CharField(max_length=100))
     meta  = {'collection' : 'Department'}
 
-class Article(Document):
-    qid = IntField()
-    content = StringField()
-    dp_abb = StringField()
-    sb_index = IntField()
-    title = StringField()
-    tag_name = ListField(StringField())
-    tag_count = ListField(IntField())
-    post_date = DateTimeField()
-    revise_date = DateField()
-    good_count = IntField()
-    bad_count = IntField()
-    author = IntField()
+class Article(models.Model):
+    content = models.CharField(max_length=100000)
+    dp_abb = models.CharField(max_length=100)
+    sb_index = models.IntegerField()
+    title = models.CharField(max_length=100)
+    tag_name = models.ListField(models.CharField(max_length=100))
+    tag_count = models.ListField(models.IntegerField())
+    post_date = models.DateField()
+    revise_date = models.DateField()
+    good_list = models.ListField(models.CharField(max_length=100))
+    bad_list = models.ListField(models.CharField(max_length=100))
+    author = models.CharField(max_length=100)
+    top = models.BooleanField(default=False)
+    exist = models.BooleanField(default=True)
     meta  = {'collection' : 'Article'}
 
-class Comment(Document):
-    qid = IntField()
-    content = StringField()
-    article_id = IntField()
-    post_date = DateField()
-    revise_date = DateField()
-    good_count = IntField()
-    bad_count = IntField()
-    author = IntField()
-    child_comment_id = IntField()
-    parent_comment_id = IntField()
+class Comment(models.Model):
+    article_id = models.IntegerField()
+    child_comment_id = models.ListField(models.IntegerField(), default=[])
+    good_list = models.ListField(models.CharField(max_length=100), default=[])
+    bad_list = models.ListField(models.CharField(max_length=100), default=[])
+    content = models.CharField(max_length=100000)
+    post_date = models.DateField()
+    revise_date = models.DateField()
+    author = models.CharField(max_length=100)
+    parent_comment_id = models.IntegerField()
+    exist = models.BooleanField(default=True)
     meta  = {'collection' : 'Comment'}

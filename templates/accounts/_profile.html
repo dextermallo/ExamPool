@@ -1,0 +1,239 @@
+<div class="container wrap">
+    <form action = "/accounts/update_user_icon/" method="POST" enctype="multipart/form-data" id = "form-update-user-icon">
+        <div class = "row"> <!-- Profile image -->
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="photo_container"> 
+                    <img src= "/{{ icon }}" alt="Avatar" class="photo profile-img rounded-circle">
+                        <label class="file photo_cover photo_cover_text" for = "image">Upload image</label>
+                        <input name = "image" id = "image" style = "display:none;" type = "file">
+                    </label>
+                </div>
+            </div>
+        </div> <!-- Profile image end. -->
+        <div class="row"> <!-- Profile name -->
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="profile-head">
+                            <h5>
+                                {{username}}
+                            </h5>
+                            <h6>
+                                {{ icon }}
+                            </h6>    
+                </div>
+            </div>
+        </div> <!-- Profile name end. -->
+    </form>
+        <div class="row"> 
+            <div class="col-md-12"> 
+                <div class="profile-nav"> <!-- Profile nav-tabs. -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab">設定</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#contribution" role="tab">貢獻</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab">我的最愛</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab">留言</a>
+                        </li>
+                    </ul>
+                </div> <!-- Profile nav-tabs end. -->        
+                <div class="tab-content profile-tab"> <!-- Tab content. -->                
+                    <div class="tab-pane fade show active" id="setting">
+                        <form action="/accounts/update_user_profile/" method="POST">
+                        <div class = "row justify-content-center">
+                            <div class="col-md-2 mat-div">                    
+                                <label for = "first_name" class = "mat-label">First Name</label>
+                                <input type="text" class="mat-input" id="first_name" name = "first_name" value= {{first_name}}>
+                            </div>  
+                            <div class = "col-md-1"></div>                                                              
+                            <div class="col-md-2 mat-div">                    
+                                <label for = "last_name" class = "mat-label">Last Name</label>
+                                <input type= "text" class = "mat-input" id="last_name" name = "last_name" value= {{last_name}}>
+                            </div>  
+                        </div>
+                        <div class = "row justify-content-center">
+                            <div class = "col-md-5 mat-div">  
+                                <label for = "email" class = "mat-label">Email</label>
+                                <input type="text" class="mat-input" name = "email" value={{email}}>                                                                        
+                            </div>
+                        </div>                       
+                        <div class = "row justify-content-center">
+                            <div class="col-md-2 mat-div">                    
+                                <label for = "password" class = "mat-label">Password</label>
+                                <input type="password" class = "mat-input" id = "password" name = "password">
+                            </div>  
+                            <div class = "col-md-1"></div>
+                            <div class="col-md-2 mat-div">
+                                <label for = "password_check" class = "mat-label">Verify</label>
+                                <input type="password" class= "mat-input" id="password_check" name = "password_check">
+                            </div>
+                        </div>
+                        <div class = "row justify-content-center">
+                            <input type="submit" class="btn btn-success tab-submit-btn" value="提交">
+                        </div>
+                        </form>                        
+                    </div>                  
+                    <div class="tab-pane fade" id="contribution">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4">
+                                <form action="#" method="get">
+                                    <div class="input-group md-form form-sm form-2 pl-0">
+                                        <input class="form-control my-0 py-1" id="system-search" name="q" placeholder="Search" required>
+                                        <div class="input-group-append"> 
+                                            <span class="input-group-text lime lighten-2"><i class="fas fa-search text-grey"></i></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12" style = "margin-top: 15px;">
+                                {% if contribution == None %}
+                                    <p> You have no contribution yet.</p>
+                                {% else %}
+                                <table class="table table-list-search" id = "contribution-table">
+                                    <thead>
+                                        <tr>
+                                            <th>系所</th>
+                                            <th>標題</th>
+                                            <th>最後編輯日期</th>
+                                            <th>標籤</th>
+                                            <th>留言數</th>                                        
+                                            <th>推噓數</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        {% for contrib in contribution %}
+                                        <tr>
+                                            <td>{{ contrib.dp_abb }}</td>
+                                            <td>{{ contrib.title }}</td>
+                                            <td>{{ contrib.revise_date }}</td>
+                                            <td>
+                                            {% for label in contrib.tag_name %} 
+                                            <span class="badge badge-primary">{{label}}</span>
+                                            {% load mathfilters %}
+                                            {% endfor%}
+                                            </td>
+                                            <td>留言數</td>
+                                            <td>
+                                            {% if contrib.good_count > contrib.bad_count %}
+                                            <span class="badge badge-success">{{ contrib.good_count|sub:contrib.bad_count }}</span>
+                                            {% else %}
+                                            <span class="badge badge-danger">{{ contrib.bad_count|sub:contrib.good_count }}</span>
+                                            {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}                                        
+                                    </tbody>
+                                </table>   
+                                {% endif %}                                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="favorite"> <!-- Tab favorite content.-->
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4">
+                                <form action="#" method="get">
+                                    <div class="input-group md-form form-sm form-2 pl-0">
+                                        <input class="form-control my-0 py-1" id="favorite-search" placeholder="Search" required>
+                                        <div class="input-group-append"> 
+                                            <span class="input-group-text"><i class="fas fa-search text-grey"></i></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12" style = "margin-top: 15px;">
+                                {% if contribution == None %}
+                                    <p> you have no favorite yet.</p>
+                                {% else %}
+                                <table class="table favorite-table" id = "favorite-table">
+                                    <thead>
+                                        <tr>                                            
+                                            <th>系所</th>
+                                            <th>標題</th>
+                                            <th>作者</th>
+                                            <th>標籤</th>                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                                                    
+                                        {% for contrib in contribution %}
+                                            <tr>
+                                                <td>{{ contrib.dp_abb }}</td>
+                                                <td>{{ contrib.title }}</td>
+                                                <td>{{ contrib.author }}</td>                                            
+                                                <td>
+                                                {% for label in contrib.tag_name %} 
+                                                <span class="badge badge-primary">{{label}}</span>                                            
+                                                {% endfor%}
+                                                </td>                                            
+                                            </tr>
+                                        {% endfor %}                                    
+                                    </tbody>
+                                </table>   
+                                {% endif %}                                        
+                            </div>
+                        </div>
+                    </div> <!-- Tab Favorite content end.-->
+                    <div class="tab-pane fade" id="comment"> <!-- Tab Comment content.-->
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4">
+                                <form action="#" method="get">
+                                    <div class="input-group md-form form-sm form-2 pl-0">
+                                        <input class="form-control my-0 py-1 user-search" id="comment-search" placeholder="Search" required>
+                                        <div class="input-group-append"> 
+                                            <span class="input-group-text"><i class="fas fa-search text-grey"></i></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12" style = "margin-top: 15px;">
+                                {% if comment == None %}
+                                    <p> 目前沒有任何留言。</p>
+                                {% else %}
+                                <table class="table comment-table" id = "comment-table">
+                                    <thead>
+                                        <tr>                                            
+                                            <th>系所</th>
+                                            <th>標題</th>
+                                            <th>作者</th>
+                                            <th>標籤</th>                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                                                    
+                                        {% for comment in comments %}
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        {% endfor %}                                    
+                                    </tbody>
+                                </table>
+                                {% endif %}                                        
+                            </div>
+                        </div>
+                    </div> <!-- Tab Comment content end.-->
+                </div>
+            </div>
+        </div> <!-- Profile nav-tabs end. -->
+    
+</div>
+
+<script>
+    $(".mat-input").focus(function(){
+        $(this).parent().addClass("is-active is-completed");
+    });
+
+    $(".mat-input").focusout(function(){
+        if($(this).val() === "")
+        $(this).parent().removeClass("is-completed");
+        $(this).parent().removeClass("is-active");
+    })
+
+    $("#image").change(function() {
+            $("#form-update-user-icon").submit();
+        })
+</script>

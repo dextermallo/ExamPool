@@ -2,17 +2,33 @@
 <html lang = "en">
     <head>
         <meta charset = "utf-8">
-        <title>Userinfo</title>
-		<link rel="stylesheet" type="text/css" href="/../../static/bootstrap-4.3.1/css/bootstrap.min.css">
-        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+        <title>ExamPool - 個人主頁 - {{ username }} </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        {% load static %}        
+        <!-- load favicon. -->
+        <link rel="icon" href = {% static "img/favicon.ico" %} type="image/x-icon" />
+        <link rel="shortcut icon" href = {% static "img/favicon.ico" %} type="image/x-icon" />
+
+        <!-- load css. -->
+        <link rel="stylesheet" href = {% static "bootstrap-4.3.1/css/bootstrap.min.css" %} >
+        <link rel="stylesheet" href = {% static "fontawesome-5.8.2/css/all.min.css" %} >
+        <link rel="stylesheet" href = {% static "css/profile.css" %} >
+
+        <!-- load js. -->
+        <script src = {% static "js/jquery-3.4.1.min.js" %} ></script>
+        <script src = {% static "bootstrap-4.3.1/js/bootstrap.min.js" %} ></script>
+        <script src = {% static "js/profile.js" %} ></script>
+
     </head>
     <body>
         {% if result == False %}
+            {% include 'nav.html' %}
             {% include 'error.html' %}
         {% else %}
             {% include 'nav.html' %}
             {% if request.user.username == username %}
-                {% include 'accounts/_setting.html' %}
+                {% include 'accounts/_profile.html' %}
             {% else %}
                 {% include 'accounts/_others.html' %}
             {% endif %}

@@ -17,19 +17,32 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from catalog import views
+import catalog.views
+import users.views
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
-    path('index/',views.index),
-    path('accounts/login/',views.login),
-    path('accounts/register/',views.register),
-    path('accounts/logout/', views.logout),
+
+    path('index/',catalog.views.index),
+    path('accounts/login/',users.views.login),
+    path('accounts/register/',users.views.register),
+    path('accounts/logout/', users.views.logout),
     path('admin/', admin.site.urls),
-    path('accounts/info/<str:username>/', views.userInfo),
+    path('accounts/info/<str:username>/', users.views.user_profile),
+    path('department/', catalog.views.allDepartment),
+    path('department/<str:dpName>/', catalog.views.allSubject),
+    path('department/<str:dpName>/<str:sbIndex>/', catalog.views.board),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', catalog.views.article),
+    path('department/<str:dpName>/<str:sbIndex>/edit/post', catalog.views.postArticle),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/deleteArticle', catalog.views.deleteArticle),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/<str:commentId>/deleteComment', catalog.views.deleteComment),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/reviseArticle', catalog.views.reviseArticle),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/reply', catalog.views.replyArticle),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/reply/<str:commentId>', catalog.views.replyComment),
+    path('accounts/update_user_profile/', users.views.update_user_profile),
+    path('accounts/update_user_icon/', users.views.update_user_icon),
+    path('accounts/', include('django.contrib.auth.urls')),
+    
+]   
 
-    path('department/', views.allDepartment),
-    path('department/<str:dpName>/', views.allSubject),
-    path('department/<str:dpName>/<str:sbIndex>/', views.board),
-    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', views.article),
-
-    path('department/<str:dpName>/<str:sbIndex>/edit/post', views.postArticle)
-]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

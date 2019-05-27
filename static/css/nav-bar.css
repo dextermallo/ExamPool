@@ -1,0 +1,27 @@
+#navbar {
+    color: rgb(75,147,67);
+    background-color: rgba(0,0,0,0.85);
+    height: 50px;
+}
+
+.navitem {
+    color: rgb(75,147,67);
+}
+
+#logo {
+    height: 40px;
+    width: auto;
+}
+
+#navbar .btn {
+    color: white;
+    margin-right: 5px;
+}
+
+#navbar .btn:last-child {
+    margin-right: 0px;
+}
+
+.btn-nav {
+    width: 80px;
+}

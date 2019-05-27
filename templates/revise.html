@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+        <title>Index</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+        <!-- Include stylesheet -->
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <!-- Include the Quill library -->
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    </head>
+    <body>
+        {% load widget_tweaks %}
+        {% include 'nav.html' %}
+        <div class = "container text-center">
+            <div class = "justify-content-center w-100">
+                {{sb_index}}
+            </div>
+
+            <div class = "container">
+                <form action = "" method = "POST">
+                    <div class="row justify-content-around align-items-center form-group">  
+                        {% render_field form.title class+="form-control" value+=article.title %}
+                    </div> 
+
+                    <div class="row justify-content-around align-items-center form-group"> 
+                        <input id = "content" type = "hidden" name = "content" maxlength = "2000" required id = "id_content" type = "hidden" value = {{ "'"|add:article.content|add:"'"|safe }}>
+                    <div id = "editor-container" class = "form-control border mt-3"></div>
+                    {% include 'editor.html' %}
+                    </div>
+
+                    <div class = 'row justify-content-around align-items-center'>
+                        <button class = "btn btn-lg btn-primary btn-block" type="submit">修改文章</button>    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,38 +1,30 @@
-# installation
-brew install mongodb 
-pip3 install django  
-pip3 install djongo  
-pip3 install django-widget-tweaks  
+# PRE-REQUIREMENTS
+1. Python 3.7.3
+2. Mongodb 4.0.3
+3. virtualenv
+# HOW TO RUN
 
-# usage
-cd env  
-source bin/activate  
-
-# cmd
-python3 manage.py shell  
-
-# run
-python3 manage.py runserver  
-
-# migrate (syncdb)  
-python3 manage.py migrate  
-
-# quit   
-deactivate  
-
-# startup(on Mac)
-cd env  
-source bin/activate  
-alias e="python3 manage.py"  
-alias c="clear"  
-e migrate  
-c  
-
-# kill port(on Mac)
-lsof -i:<port-number>  
-kill -9 <pid>  
-
-
-
-
-
+1. load virtualenv
+```sh
+source bin/activate
+```
+2. install requirements.  
+```sh
+pip install -r requirements.txt  
+```
+3. start mongodb.  
+```sh
+source start_mongo.sh   
+```
+4. start inverment.   
+```sh
+source start_env.sh
+```
+5. import data.
+```sh
+source data_import.sh
+```
+6. run server.
+```sh
+python3 manage.py runserver
+```
