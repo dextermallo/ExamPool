@@ -23,21 +23,17 @@
             <div class = "container">
                 <form action = "" method = "POST">
                     <div class="row justify-content-around align-items-center form-group">  
-                        {% render_field form.title class+="form-control" %}
-                    </div> 
-
-                    <div class="row justify-content-around align-items-center form-group">  
-                        {% render_field form.tag_name class+="form-control" %}
+                        {% render_field form.title class+="form-control" value+=article.title %}
                     </div> 
 
                     <div class="row justify-content-around align-items-center form-group"> 
-                        <input type = "hidden" name = "content" maxlength = "2000" required id = "id_content" type = "hidden">
-                        <div id = "editor-container" class = "form-control border mt-3"></div>
-                        {% include 'editor.html' %}
+                        <input id = "content" type = "hidden" name = "content" maxlength = "2000" required id = "id_content" type = "hidden" value = {{ "'"|add:article.content|add:"'"|safe }}>
+                    <div id = "editor-container" class = "form-control border mt-3"></div>
+                    {% include 'editor.html' %}
                     </div>
 
                     <div class = 'row justify-content-around align-items-center'>
-                        <button class = "btn btn-lg btn-primary btn-block" type="submit">發布問題</button>    
+                        <button class = "btn btn-lg btn-primary btn-block" type="submit">修改文章</button>    
                     </div>
                 </form>
             </div>

@@ -1,11 +1,12 @@
 <!-- Create the editor container -->
 <!-- <div id="editor"> -->
 <!-- Initialize Quill editor -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
 <script>
 var quill = new Quill('#editor-container', {
   modules: {
     toolbar: [
-      [{ 'size': ['small', false, 'large', 'huge'] }],
+      /*[{ 'size': ['small', false, 'large', 'huge'] }],*/
       ['bold', 'italic'],
       ['link', 'image'],
       [{ list: 'ordered' }, { list: 'bullet' }]
@@ -15,12 +16,23 @@ var quill = new Quill('#editor-container', {
   theme: 'snow'
 });
 
+/*
+$(document).ready(
+  function(){
+    $('.ql-editor').html($("#content").val());
+  }
+);*/
+window.onload = function(){
+  //alert(document.querySelector("#content").value);
+   document.querySelector('.ql-editor').innerHTML = document.querySelector("#content").value;
+};
+
 var form = document.querySelector('form');
     form.onsubmit = function() {
     // Populate hidden form on submit
     var content = document.querySelector('input[name=content]');
     content.value = quill.root.innerHTML;
-    
+    //alert(content.value);
     console.log("Submitted", $(form).serialize(), $(form).serializeArray());
     
     // No back end to actually submit to!

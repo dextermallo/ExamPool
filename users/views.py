@@ -86,7 +86,10 @@ def user_profile(request, username):
 	try:
 		result = User.objects.get(username = username) 
 		articles = Article.objects.all().filter(author = username)
+		print(request.user.id, file=sys.stderr)
 		print('========================', file=sys.stderr)
+		for i in Icon.objects.all():
+			print(i, file=sys.stderr)
 		icon = Icon.objects.get(user = request.user.id)
 		print("test", file=sys.stderr)
 		print(str(icon.icon.url), file=sys.stderr)

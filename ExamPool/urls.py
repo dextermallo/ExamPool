@@ -29,13 +29,20 @@ urlpatterns = [
     path('accounts/logout/', users.views.logout),
     path('admin/', admin.site.urls),
     path('accounts/info/<str:username>/', users.views.user_profile),
+    path('accounts/update_user_profile/', users.views.update_user_profile),
+    path('accounts/update_user_icon/', users.views.update_user_icon),
+
     path('department/', catalog.views.allDepartment),
     path('department/<str:dpName>/', catalog.views.allSubject),
     path('department/<str:dpName>/<str:sbIndex>/', catalog.views.board),
     path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', catalog.views.article),
     path('department/<str:dpName>/<str:sbIndex>/edit/post', catalog.views.postArticle),
-    path('accounts/update_user_profile/', users.views.update_user_profile),
-    path('accounts/update_user_icon/', users.views.update_user_icon),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/deleteArticle', catalog.views.deleteArticle),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/<str:commentId>/deleteComment', catalog.views.deleteComment),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/reviseArticle', catalog.views.reviseArticle),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/reply', catalog.views.replyArticle),
+    path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/reply/<str:commentId>', catalog.views.replyComment),
+    
     
 ]   
 
