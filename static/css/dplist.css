@@ -14,8 +14,15 @@ img{
     transition: .5s;
 }
 
+.card-img-top{
+  min-height: 190px;
+  min-width: 286px;
+}
+
 .card-img-container{
-    overflow: hidden;
+  overflow: hidden;
+  width: 286px;
+  height: 190px;
 }
 
 .card-body{

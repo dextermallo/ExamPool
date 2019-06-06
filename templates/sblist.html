@@ -5,11 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-        <title>Index</title>
+        <title>ExamPool - Sbuject List</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
         {% load static  %}
+        {% load index %}
         <script type="text/javascript" src={% static "js/dplist.js" %}></script>
         <link rel="stylesheet" type="text/css" href={% static "css/dplist.css" %}>
     </head>
@@ -23,12 +24,12 @@
                         <div class="card justify-content-center" style="width: 18rem;">
                             <a href={{forloop.counter}} class="card-img-container">
                                     <img src = {% static "img/enter.png" %} class="enter-img">
-                                <img src ={% static "img/cs.gif" %} class="card-img-top" alt="...">
+                                <img src ={% static Department.sb_img_file|index:forloop.counter0 %} class="card-img-top" alt="...">
                             </a>
                             <div class="card-body bg-dark text-white">
                                 <h5 class = "card-title" data-text = {{subject}}>{{subject}}</h5>
                                 <hr class = "card-divider" style = "border-color:white;">
-                                <p class = "card-text">Computer science is the study of processes that interact with data and that can be represented as data in the form of programs.</p>
+                                <p class = "card-text">{{ Department.sb_intro|index:forloop.counter0 }}</p>
                             </div>
                         </div>
                     </div>

@@ -5,11 +5,15 @@ from datetime import datetime
 class Department(models.Model):
     dp_name = models.CharField(max_length=100)
     dp_abb = models.CharField(max_length=100)
+    dp_img_file = models.CharField(max_length=100)
+    dp_intro = models.CharField(max_length=300)
     sb_name = models.ListField(models.CharField(max_length=100))
+    sb_img_file = models.ListField(models.CharField(max_length=100))
+    sb_intro = models.ListField(models.CharField(max_length=300))
     meta  = {'collection' : 'Department'}
 
 class Article(models.Model):
-    content = models.CharField(max_length=100000)
+    content = models.CharField(max_length=1000000)
     dp_abb = models.CharField(max_length=100)
     sb_index = models.IntegerField()
     title = models.CharField(max_length=100)
@@ -29,7 +33,7 @@ class Comment(models.Model):
     child_comment_id = models.ListField(models.IntegerField(), default=[])
     good_list = models.ListField(models.CharField(max_length=100), default=[])
     bad_list = models.ListField(models.CharField(max_length=100), default=[])
-    content = models.CharField(max_length=100000)
+    content = models.CharField(max_length=1000000)
     post_date = models.DateField()
     revise_date = models.DateField()
     author = models.CharField(max_length=100)

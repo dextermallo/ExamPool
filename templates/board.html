@@ -5,9 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-        <title>Index</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <title>ExamPool - View Board</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         {% load static  %}
         <script type="text/javascript" src={% static "js/board.js" %}></script>
@@ -15,13 +17,20 @@
     </head>
     <body>
         {% include 'nav.html' %}
-        
+        {% load index %}
         <img class = "bg-img" src = {% static "img/board_bg.jpg" %}></img>
-        <div class = "container">
+        <div class = "links">
+            <a href = ".."class = "link-container">
+                <div class = "link">
+                    BACK
+                </div>
+            </a>
+        </div>
 
+        <div class = "container article-list">
             <div class = "container text-right">
                 {% if user.is_authenticated %}
-                    <a href = "edit/post" class = "btn btn-success">
+                    <a href = "edit/post" class = "btn post-article">
                         發布問題
                     </a>
                 {% endif %}
@@ -34,7 +43,7 @@
                             <div class = "row">
                                 <div class = "label text-center text-dark bg-white rounded col-2 border-right border-dark">
                                     {% if article.tag_name.0 %}
-                                        {{article.tag_name.0}}
+                                        {{article.tag_name|maxTag:article.tag_count}}
                                     {% else %}
                                         new post
                                     {% endif %}
@@ -45,7 +54,7 @@
                                     </div>
                                 </a>
                                 <div class = "time col-sm text-white text-right">
-                                    {{article.revise_time}}
+                                    {{article.revise_date}}
                                 </div>
                             </div>
                         </div>
@@ -56,34 +65,115 @@
 
         <div class="select-page">
             <div class="page-wrapper">
-                <div class = "arrow">
-                    <div class = "page-hover-stick-left"></div>
-                    <a href="javascript:;"><div class="page-prev"></div></a>
-                    <div class = "page-hover-stick-right"></div>
-                </div>
+                <form method = "POST">
 
-                <a class="page-numbers" href="javascript:;">1</a>
-                <a class="page-numbers page-current">2</a>
-                <a class="page-numbers" href="javascript:;">3</a>
-                <div class = "arrow">
+                <button class = "arrow"
+                {% if now_page > 1 %}
+                    value = {{now_page|add:-1}}
+                {% endif %}
+                 name = "page">
                     <div class = "page-hover-stick-left"></div>
-                    <a href="javascript:;"><div class="page-next" href="javascript:;"></div></a>
+                    <div class="page-prev"></div>
                     <div class = "page-hover-stick-right"></div>
-                </div>
+                </button>
+                
+                <button class = 
+                {% if now_page > 1 %}
+                    "page-numbers"
+                {% else %}
+                    "page-numbers hide"
+                {% endif %}
+                    name = "page"
+                    value = "{{now_page|add:-1}}"
+                {% if now_page > 1 %}
+                    disable = "disable"
+                {% endif %}
+                 >
+                 {{now_page|add:-1}}
+                 </button>
+
+                <button class="page-numbers page-current">{{now_page}}</button>
+
+                <button class = 
+                {% if now_page < max_page %}
+                    "page-numbers"
+                {% else %}
+                    "page-numbers hide"
+                {% endif %}
+                    name = "page"
+                    value = "{{now_page|add:1}}"
+                {% if now_page >= max_page %}
+                    disable = "disable"
+                {% endif %}
+                >
+                {{now_page|add:1}}
+                </button>
+                
+                <button class = "arrow" value = {{now_page|add:1}} name = "page">
+                    <div class = "page-hover-stick-left"></div>
+                    <div class="page-next"></div>
+                    <div class = "page-hover-stick-right"></div>
+                </button>
+                </form>
             </div>
         </div>
         <div class = "select-page show-goto">．<b>．．．</b>．</div>
 
         <div class = "goto-wrapper">
             <div class = "page-goto from-left">
-                <input class = "page-goto page-input text-center" placeholder="GOTOPAGE">
+                <form method = "POST">
+                    <input class = "page-goto page-input text-center" placeholder="GOTOPAGE" name = "page">
+                </form>
             </div>
         </div>
 
         <div class = "side-menu-container">
-            <div class = "side-menu-option">
-                Search Tag
-            </div>
+            <form role="group" method = "POST" id="menu-form"> 
+                <input class = "search hidden" name = "check" value = "OK" type = "submit"></input>
+                <div class = "side-menu-option-title">
+                    Search Tag
+                </div>
+                <div class = "side-menu-option">
+                    <input class = "search" name = "tag" value = {{tag}}></input>
+                </div>
+
+                <div class = "side-menu-option-title">
+                    Search Title
+                </div>
+                <div class = "side-menu-option">
+                    <input class = "search" name = "title" value = {{title}}></input>
+                </div>
+
+                <div class = "side-menu-option-title">
+                    Search Content
+                </div>
+                <div class = "side-menu-option">
+                    <input class = "search" name = "content" value = {{content}}></input>
+                </div>
+
+                <div class = "side-menu-option-title">
+                    Search Author
+                </div>
+                <div class = "side-menu-option">
+                    <input class = "search" name = "author" value = {{author}}></input>
+                </div>
+                
+                <div class = "side-menu-option-title">
+                    Sort By
+                </div>
+                <div class = "side-menu-option">
+                    <select name = "sort" id = "sort">
+                        <option value = "id" {% if sort == "id" %} selected = "selected" {% endif %}>Article ID Forward</option>
+                        <option value = "-id" {% if sort == "-id" %} selected = "selected" {% endif %}>Article ID Backward</option>
+                        <option value = "title" {% if sort == "title" %} selected = "selected" {% endif %}>Title Forward</option>
+                        <option value = "-title" {% if sort == "-title" %} selected = "selected" {% endif %}>Title Backward</option>
+                        <option value = "post_date" {% if sort == "post_date" %} selected = "selected" {% endif %}>Post Date Forward</option>
+                        <option value = "-post_date" {% if sort == "-post_date" %} selected = "selected" {% endif %}>Post Date Backward</option>
+                        <option value = "revise_date" {% if sort == "revise_date" %} selected = "selected" {% endif %}>Revise Date Forward</option>
+                        <option value = "-revise_date" {% if sort == "-revise_date" %} selected = "selected" {% endif %}>Revise Date Backward</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </body>
 </html>

@@ -32,6 +32,7 @@ urlpatterns = [
     path('department/', catalog.views.allDepartment),
     path('department/<str:dpName>/', catalog.views.allSubject),
     path('department/<str:dpName>/<str:sbIndex>/', catalog.views.board),
+
     path('department/<str:dpName>/<str:sbIndex>/<str:articleId>', catalog.views.article),
     path('department/<str:dpName>/<str:sbIndex>/edit/post', catalog.views.postArticle),
     path('department/<str:dpName>/<str:sbIndex>/<str:articleId>/deleteArticle', catalog.views.deleteArticle),

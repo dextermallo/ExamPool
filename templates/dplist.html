@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" type="text/css" href="../../static/bootstrap-4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-        <title>Index</title>
+        <title>ExamPool - Department List</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
@@ -23,12 +23,12 @@
                         <div class="card justify-content-center" style="width: 18rem;">
                             <a href={{department.dp_abb}} class="card-img-container">
                                     <img src = {% static "img/enter.png" %} class="enter-img">
-                                <img src ={% static "img/cs.gif" %} class="card-img-top" alt="...">
+                                <img src ={% static department.dp_img_file %} class="card-img-top" alt="...">
                             </a>
                             <div class="card-body bg-dark text-white">
                                 <h5 class = "card-title" data-text = {{ department.dp_name }}>{{department.dp_name}}</h5>
                                 <hr class = "card-divider" style = "border-color:white;">
-                                <p class = "card-text">Computer science is the study of processes that interact with data and that can be represented as data in the form of programs.</p>
+                                <p class = "card-text">{{ department.dp_intro }}</p>
                             </div>
                         </div>
                     </div>
