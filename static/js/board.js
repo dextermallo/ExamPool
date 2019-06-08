@@ -21,4 +21,5 @@ $( document ).ready(function() {
             $(this).find(".page-hover-stick-right").css("animation-name", "none");
         }
     );
+    $( "#sort" ).selectmenu();
 });

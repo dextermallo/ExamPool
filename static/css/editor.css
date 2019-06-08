@@ -1,0 +1,121 @@
+.bg-img{
+    width: 1920px !important;
+    max-width:1920px !important;
+    height: 1080px !important;
+    max-height:1080px !important;
+    top : -50px;
+    position: fixed;
+    z-index: -100;
+    filter:opacity(0.4) blur(3px) sepia(1);
+    overflow:hidden;
+}
+
+@font-face {
+    font-family: 'Borda';
+    src: url('fonts/Borda.woff') format("woff")
+  }
+
+
+.links{
+    position: relative;
+    left:5px;
+    top:0px;
+    font-family: "Borda";
+    margin-bottom: 20px;
+}
+
+.link{
+    font-family: "Borda";
+    color:#fff;
+    padding:2px 5px 0px 5px;   
+    transform: skewX(20deg);
+    text-decoration: none;
+}
+
+.link:hover{
+    text-decoration: none;
+}
+
+.link-container{
+    display: inline-block;
+    transform: skewX(-20deg);
+    background-color: #000;
+    margin-right: 10px;
+    transition: .5s;
+}
+
+.sheet{
+    padding: 25px 50px 0px 50px;
+    background: rgba(0,0,0,0.65);
+    border: #000 2px solid;
+}
+
+.ql-snow{
+    background-color:#fff;
+}
+
+.submit-btn{
+    background: #000;
+    color:#fff;
+    width: 500px;
+    border: rgb(75,147,67) 2px solid;
+    font-family: "Borda";
+    font-size: 20px;
+    letter-spacing: 8px;
+    position: relative;
+    top:-50px;
+}
+
+.submit-btn:hover{
+    color:#fff;
+    background: rgba(75,147,67, 0.4);
+}
+
+.form-control{
+    background:rgba(0,0,0,0.8);
+    color:#fff;
+}
+
+.form-control:focus{
+    background:rgba(0,0,0,0.8);
+    color:#fff;
+}
+
+.ql-editor{
+    font-size: 16px;
+    min-height: 100px;
+}
+
+.corner{
+    position: relative;
+    bottom: 70px;
+    right:-487px;
+    transition: .5s;
+    z-index: 1;
+}
+
+.corner-r{
+    position: absolute;
+    top:50px;
+    left:-25px;
+    transition: .5s;
+    transform: scale(-1,-1);
+    z-index: 1;
+}
+
+.editor-container{
+    position: relative;
+}
+
+.reply_bg{
+    background: rgba(255,255,255,0.8);
+    transform: skewX(20deg);
+    margin-bottom: 20px;
+    max-width: 250px;
+    border-right: #000 20px solid;
+}
+
+.reply{
+    transform: skewX(-20deg);
+    padding-left:20px;
+}

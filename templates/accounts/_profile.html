@@ -28,13 +28,16 @@
                 <div class="profile-nav"> <!-- Profile nav-tabs. -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab">Setting</a>
+                            <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab">設定</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#contribution" role="tab">Contribution</a>
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#contribution" role="tab">貢獻</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab">Favorite</a>
+                            <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab">我的最愛</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab">留言</a>
                         </li>
                     </ul>
                 </div> <!-- Profile nav-tabs end. -->        
@@ -73,8 +76,7 @@
                             <input type="submit" class="btn btn-success tab-submit-btn" value="提交">
                         </div>
                         </form>                        
-                    </div>
-                    
+                    </div>                  
                     <div class="tab-pane fade" id="contribution">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-4">
@@ -174,6 +176,46 @@
                             </div>
                         </div>
                     </div> <!-- Tab Favorite content end.-->
+                    <div class="tab-pane fade" id="comment"> <!-- Tab Comment content.-->
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4">
+                                <form action="#" method="get">
+                                    <div class="input-group md-form form-sm form-2 pl-0">
+                                        <input class="form-control my-0 py-1 user-search" id="comment-search" placeholder="Search" required>
+                                        <div class="input-group-append"> 
+                                            <span class="input-group-text"><i class="fas fa-search text-grey"></i></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-12" style = "margin-top: 15px;">
+                                {% if comment == None %}
+                                    <p> 目前沒有任何留言。</p>
+                                {% else %}
+                                <table class="table comment-table" id = "comment-table">
+                                    <thead>
+                                        <tr>                                            
+                                            <th>系所</th>
+                                            <th>標題</th>
+                                            <th>作者</th>
+                                            <th>標籤</th>                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                                                    
+                                        {% for comment in comments %}
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        {% endfor %}                                    
+                                    </tbody>
+                                </table>
+                                {% endif %}                                        
+                            </div>
+                        </div>
+                    </div> <!-- Tab Comment content end.-->
                 </div>
             </div>
         </div> <!-- Profile nav-tabs end. -->

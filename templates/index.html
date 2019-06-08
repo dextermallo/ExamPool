@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <title>ExamPool - Homepage</title>
+        <title>ExamPool - Index</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+        <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
         {% load static %}
         <!-- load favicon. -->
         <link rel="icon" href={% static "img/favicon.ico" %} type="image/x-icon"/>
@@ -17,23 +18,43 @@
         <!-- load js. -->
         <script src= {% static "js/jquery-3.4.1.min.js" %}></script>
         <script src= {% static "bootstrap-4.3.1/js/bootstrap.min.js" %}></script>
+
+        
+        <link rel="stylesheet" type="text/css" href={% static "css/index.css" %}>
+        <script src='https://code.createjs.com/easeljs-0.7.1.min.js'></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
     </head>
     
     <body>
-        {% include 'nav.html' %}  
-        <form action="/accounts/update_user_icon/" method="POST" enctype="multipart/form-data" id = "form1">
-            <p>
-                <input id="image" type="file" class="" name="image">
-            </p>
-            <input type="submit" value="Submit" />
-        </form>
+        {% include 'nav.html' %}
+        <a href = "/../department">
+            <div id = 'cover'></div>
+            <div id= 'animation-area'>
+            <img src = {% static "img/index-animation/ani-1.png" %} id = "ani-1"></img>
+            <img src = {% static "img/index-animation/ani-1-amb.png" %} id = "ani-1-amb"></img>
+            <img src = {% static "img/index-animation/ani-2-left.png" %} id = "ani-2-left"></img>
+            <img src = {% static "img/index-animation/ani-2-right.png" %} id = "ani-2-right"></img>
+            <img src = {% static "img/index-animation/ani-3-parallel.png" %} id = "ani-3-parallel"></img>
+            <img src = {% static "img/index-animation/ani-3-vertical.png" %} id = "ani-3-vertical"></img>
+            <img src = {% static "img/index-animation/ani-4-upper.png" %} id = "ani-4-upper"></img>
+            <img src = {% static "img/index-animation/ani-4-lower.png" %} id = "ani-4-lower"></img>
+            <img src = {% static "img/index-animation/ani-4-E.png" %} id = "ani-4-E"></img>
+            <img src = {% static "img/index-animation/ani-4-A.png" %} id = "ani-4-A"></img>
+            <img src = {% static "img/index-animation/ani-4-M.png" %} id = "ani-4-M"></img>
+            <img src = {% static "img/index-animation/ani-4-P.png" %} id = "ani-4-P"></img>
+            <img src = {% static "img/index-animation/ani-4-L.png" %} id = "ani-4-L"></img>
+            <img src = {% static "img/index-animation/ani-4-O1.png" %} id = "ani-4-O1"></img>
+            <img src = {% static "img/index-animation/ani-4-O2.png" %} id = "ani-4-O2"></img>
+            <img src = {% static "img/index-animation/hint.png" %} id = "hint"></img>
+            <img src = {% static "img/index-animation/line.png" %} id = "line"></img>
+            
+            </div>
+            <canvas id="projector" style="z-index:-1;"></canvas>
+            <script type="text/javascript" src={% static "js/index-canvas.js" %}></script>
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
+        </a>
     </body>
 </html>
-<script type="text/javascript">
-    $(function() {
-        
-        $("#image").change(function() {
-            $("#form1").submit();
-        })
-    })
-</script>
+

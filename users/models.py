@@ -76,7 +76,7 @@ class Contribution(models.Model):
     )
     contribution = models.ListField(models.CharField(max_length=2000))
     
-    def register_user(user):
+    def create_contribution(user):
         contribution = Contribution(user, [])
         contribution.save()
 
@@ -87,7 +87,7 @@ class Favorite(models.Model):
         primary_key=True,
     )
     favorite = models.ListField(models.CharField(max_length=2000))
-    def register_user(user):
+    def create_favorite(user):
         favorite = Favorite(user, [])
         favorite.save()
 
@@ -99,7 +99,6 @@ class Voting(models.Model):
     )   
     voting = models.IntegerField() 
 
-    def register_user(user):
+    def create_voting(user):
         voting = Voting(user, 0)
         voting.save()
-

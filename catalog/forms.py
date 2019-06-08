@@ -24,3 +24,17 @@ class commentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
+
+class tagForm(forms.Form):
+    tag_name = forms.CharField()
+
+class pageForm(forms.Form):
+    page = forms.CharField()
+
+class searchForm(forms.Form):
+    check = forms.CharField()
+    tag = forms.CharField(required=False)
+    title = forms.CharField(required=False)
+    content = forms.CharField(required=False)
+    author = forms.CharField(required=False)
+    sort = forms.CharField(required=False)
