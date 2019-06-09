@@ -2,9 +2,11 @@
     <form action = "/accounts/update_user_icon/" method="POST" enctype="multipart/form-data" id = "form-update-user-icon">
         <div class = "row"> <!-- Profile image -->
             <div class="col-md-12 d-flex justify-content-center">
-                <div class="photo_container"> 
+                <div class="photo_container">
                     <img src= "/{{ icon }}" alt="Avatar" class="photo profile-img rounded-circle">
+                        {% if request.user.username == username %}
                         <label class="file photo_cover photo_cover_text" for = "image">Upload image</label>
+                        {% endif %}                        
                         <input name = "image" id = "image" style = "display:none;" type = "file">
                     </label>
                 </div>
@@ -16,56 +18,74 @@
                             <h5>
                                 {{username}}
                             </h5>
-                            <h6>
-                                {{ icon }}
-                            </h6>    
                 </div>
             </div>
         </div> <!-- Profile name end. -->
     </form>
-        <div class="row"> 
-            <div class="col-md-12"> 
+        <div class="row">
+            <div class="col-md-12">
                 <div class="profile-nav"> <!-- Profile nav-tabs. -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
+                        {% if request.user.username == username %}
                             <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab">設定</a>
+                        {% else %}
+                            <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab">個人資料</a>
+                        {% endif %}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#contribution" role="tab">貢獻</a>
                         </li>
                         <li class="nav-item">
+                        {% if request.user.username == username %}
                             <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab">我的最愛</a>
+                        {% else %}
+                            <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab">個人最愛</a>
+                        {% endif %}
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="comment-tab" data-toggle="tab" href="#comment" role="tab">留言</a>
                         </li>
                     </ul>
-                </div> <!-- Profile nav-tabs end. -->        
-                <div class="tab-content profile-tab"> <!-- Tab content. -->                
+                </div> <!-- Profile nav-tabs end. -->
+                <div class="tab-content profile-tab"> <!-- Tab content. -->
                     <div class="tab-pane fade show active" id="setting">
                         <form action="/accounts/update_user_profile/" method="POST">
                         <div class = "row justify-content-center">
-                            <div class="col-md-2 mat-div">                    
+                            <div class="col-md-2 mat-div">
                                 <label for = "first_name" class = "mat-label">First Name</label>
+                                {% if request.user.username == username %}
                                 <input type="text" class="mat-input" id="first_name" name = "first_name" value= {{first_name}}>
-                            </div>  
-                            <div class = "col-md-1"></div>                                                              
-                            <div class="col-md-2 mat-div">                    
+                                {% else %}
+                                <input type="text" class="mat-input" id="first_name" name = "first_name" value= {{first_name}} disabled>
+                                {% endif %}                                
+                            </div>
+                            <div class = "col-md-1"></div>
+                            <div class="col-md-2 mat-div">
                                 <label for = "last_name" class = "mat-label">Last Name</label>
+                                {% if request.user.username == username %}
                                 <input type= "text" class = "mat-input" id="last_name" name = "last_name" value= {{last_name}}>
-                            </div>  
+                                {% else %}
+                                <input type= "text" class = "mat-input" id="last_name" name = "last_name" value= {{last_name}} disabled>
+                                {% endif %}
+                            </div>
                         </div>
                         <div class = "row justify-content-center">
-                            <div class = "col-md-5 mat-div">  
+                            <div class = "col-md-5 mat-div">
                                 <label for = "email" class = "mat-label">Email</label>
-                                <input type="text" class="mat-input" name = "email" value={{email}}>                                                                        
+                                {% if request.user.username == username %}
+                                <input type="text" class="mat-input" name = "email" value={{email}}>
+                                {% else %}
+                                <input type="text" class="mat-input" name = "email" value={{email}} disabled>
+                                {% endif %}                                
                             </div>
-                        </div>                       
+                        </div>
+                        {% if request.user.username == username %}                                            
                         <div class = "row justify-content-center">
-                            <div class="col-md-2 mat-div">                    
+                            <div class="col-md-2 mat-div">
                                 <label for = "password" class = "mat-label">Password</label>
                                 <input type="password" class = "mat-input" id = "password" name = "password">
-                            </div>  
+                            </div>
                             <div class = "col-md-1"></div>
                             <div class="col-md-2 mat-div">
                                 <label for = "password_check" class = "mat-label">Verify</label>
@@ -75,15 +95,16 @@
                         <div class = "row justify-content-center">
                             <input type="submit" class="btn btn-success tab-submit-btn" value="提交">
                         </div>
-                        </form>                        
-                    </div>                  
+                        {% endif %}
+                        </form>
+                    </div>
                     <div class="tab-pane fade" id="contribution">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-4">
                                 <form action="#" method="get">
                                     <div class="input-group md-form form-sm form-2 pl-0">
                                         <input class="form-control my-0 py-1" id="system-search" name="q" placeholder="Search" required>
-                                        <div class="input-group-append"> 
+                                        <div class="input-group-append">
                                             <span class="input-group-text lime lighten-2"><i class="fas fa-search text-grey"></i></span>
                                         </div>
                                     </div>
@@ -91,7 +112,7 @@
                             </div>
                             <div class="col-md-12" style = "margin-top: 15px;">
                                 {% if contribution == None %}
-                                    <p> You have no contribution yet.</p>
+                                    <p> 您目前沒有貢獻任何題目。</p>
                                 {% else %}
                                 <table class="table table-list-search" id = "contribution-table">
                                     <thead>
@@ -100,35 +121,39 @@
                                             <th>標題</th>
                                             <th>最後編輯日期</th>
                                             <th>標籤</th>
-                                            <th>留言數</th>                                        
+                                            <th>留言數</th>
                                             <th>推噓數</th>
                                         </tr>
                                     </thead>
-                                    <tbody> 
+                                    <tbody>
                                         {% for contrib in contribution %}
                                         <tr>
                                             <td>{{ contrib.dp_abb }}</td>
                                             <td>{{ contrib.title }}</td>
                                             <td>{{ contrib.revise_date }}</td>
                                             <td>
-                                            {% for label in contrib.tag_name %} 
+                                            {% for label in contrib.tag_name %}
                                             <span class="badge badge-primary">{{label}}</span>
-                                            {% load mathfilters %}
+                                            
                                             {% endfor%}
                                             </td>
-                                            <td>留言數 {{ replys.value }}</td>
+                                            {% load index %}
+                                            <td>{{ replys|keyToValue:contrib.id }}</td>
                                             <td>
+                                            {% load mathfilters %}                                            
                                             {% if contrib.good_list|length > contrib.bad_list|length %}
-                                            <span class="badge badge-success">{{ contrib.good_list|length|sub:contrib.bad_list|length }}</span>
+                                            <span class="badge badge-success">{{ contrib.good_list|length }}</span>
+                                            {% elif contrib.good_list|length < contrib.bad_list|length %}
+                                            <span class="badge badge-danger">{{ contrib.bad_list|length }}</span>
                                             {% else %}
-                                            <span class="badge badge-danger">{{ contrib.bad_list|length|sub:contrib.good_list|length }}</span>
+                                            <span class="badge badge-secondary">0</span>
                                             {% endif %}
                                             </td>
                                         </tr>
-                                        {% endfor %}                                        
+                                        {% endfor %}
                                     </tbody>
-                                </table>   
-                                {% endif %}                                        
+                                </table>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -138,41 +163,44 @@
                                 <form action="#" method="get">
                                     <div class="input-group md-form form-sm form-2 pl-0">
                                         <input class="form-control my-0 py-1" id="favorite-search" placeholder="Search" required>
-                                        <div class="input-group-append"> 
+                                        <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-search text-grey"></i></span>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="col-md-12" style = "margin-top: 15px;">
-                                {% if contribution == None %}
-                                    <p> you have no favorite yet.</p>
+                                {% if favorites == None %}
+                                    <p>您尚未有任何最愛。</p>
                                 {% else %}
                                 <table class="table favorite-table" id = "favorite-table">
                                     <thead>
-                                        <tr>                                            
+                                        <tr>
                                             <th>系所</th>
                                             <th>標題</th>
                                             <th>作者</th>
-                                            <th>標籤</th>                                        
+                                            <th>最後編輯日期</th>
+                                            <th>標籤</th>
                                         </tr>
                                     </thead>
-                                    <tbody>                                                                    
-                                        {% for contrib in contribution %}
-                                            <tr>
-                                                <td>{{ contrib.dp_abb }}</td>
-                                                <td>{{ contrib.title }}</td>
-                                                <td>{{ contrib.author }}</td>                                            
-                                                <td>
-                                                {% for label in contrib.tag_name %} 
-                                                <span class="badge badge-primary">{{label}}</span>                                            
-                                                {% endfor%}
-                                                </td>                                            
-                                            </tr>
-                                        {% endfor %}                                    
+                                    <tbody>
+                                        {% load index %}
+                                        {% for favorite in favorites %}
+                                        <tr>
+                                            <td>{{ favorite.dp_abb }}</td>
+                                            <td>{{ favorite.title }}</td>
+                                            <td>{{ favorite.author }}</td>
+                                            <td>{{ favorite.revise_date }}</td>
+                                            <td>
+                                            {% for label in favorite.tag_name %}
+                                            <span class="badge badge-primary">{{label}}</span>
+                                            {% endfor%}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
                                     </tbody>
-                                </table>   
-                                {% endif %}                                        
+                                </table>
+                                {% endif %}
                             </div>
                         </div>
                     </div> <!-- Tab Favorite content end.-->
@@ -182,44 +210,42 @@
                                 <form action="#" method="get">
                                     <div class="input-group md-form form-sm form-2 pl-0">
                                         <input class="form-control my-0 py-1 user-search" id="comment-search" placeholder="Search" required>
-                                        <div class="input-group-append"> 
+                                        <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-search text-grey"></i></span>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="col-md-12" style = "margin-top: 15px;">
-                                {% if comment == None %}
-                                    <p> 目前沒有任何留言。</p>
+                                {% if comments == None %}
+                                    <p> 您目前沒有任何留言。</p>
                                 {% else %}
                                 <table class="table comment-table" id = "comment-table">
                                     <thead>
-                                        <tr>                                            
+                                        <tr>
                                             <th>系所</th>
                                             <th>標題</th>
                                             <th>作者</th>
-                                            <th>推噓數</th>                                        
                                         </tr>
                                     </thead>
-                                    <tbody>                                                                    
+                                    <tbody>
                                         {% for comment in comments %}
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{comment.dp_abb}}</td>
+                                                <td>{{comment.title}}</td>
+                                                <td>{{comment.author}}</td>
                                             </tr>
-                                        {% endfor %}                                    
+                                        {% endfor %}
                                     </tbody>
                                 </table>
-                                {% endif %}                                        
+                                {% endif %}
                             </div>
                         </div>
                     </div> <!-- Tab Comment content end.-->
                 </div>
             </div>
         </div> <!-- Profile nav-tabs end. -->
-    
+
 </div>
 
 <script>

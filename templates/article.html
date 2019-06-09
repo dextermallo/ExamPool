@@ -22,6 +22,7 @@
         {% include 'nav.html' %}
         {% load widget_tweaks %}
         {% load index %}
+
         <img class = "bg-img" src = {% static "img/board_bg.jpg" %} draggable="false"></img>
         <div class = "links">
             <a href = "../.."class = "link-container">
@@ -45,10 +46,10 @@
             <div class = "M-container">
                 <div class = "upper-container">
                     <div class = "author-container">
-                        <a class = "user-link" href="#">
+                        <a class = "user-link" href="../../../accounts/info/{{Article.author}}">
                             <img src=
-                            {% if user.icon %}
-                                {{user.icon}}
+                            {% if author.icon.icon %}
+                                "/media/{{author.icon.icon}}"
                             {% else %}
                                 {% static "img/user_img.png" %}
                             {% endif %}
@@ -147,8 +148,8 @@
                                 CON
                             </div>
                             <div class = "author-info">
-                                {% if author.contribution%}
-                                    {{author.contribution}}
+                                {% if author_contribution %}
+                                    {{author_contribution}}
                                 {% else %}
                                     0
                                 {% endif %}
@@ -197,10 +198,10 @@
                                 author-indentation-1
                                 {% endif %}
                                 ">
-                                    <a class = "user-link" href="#">
+                                    <a class = "user-link" href="../../../accounts/info/{{comment.author}}">
                                         <img src=
-                                        {% if user.icon %}
-                                            {{user.icon}}
+                                        {% if comment_icon|index:forloop.counter0 %}
+                                            "/media/{{comment_icon|index:forloop.counter0}}"
                                         {% else %}
                                             {% static "img/user_img.png" %}
                                         {% endif %}
@@ -247,6 +248,7 @@
                                         </button>
                                         <div class = "btn bg-count">
                                             {{ comment_goodbad_count|index:forloop.counter0 }}
+
                                         </div>
                                         <button type=
                                             {% if user.is_authenticated %}
@@ -275,11 +277,7 @@
                 <div class = "function-block-option">
                     <div class = "symbol">
                         <a class = "contribute-value">
-                            {% if author.contribution%}
-                                {{author.contribution}}
-                            {% else %}
-                                0
-                            {% endif %}
+                            {{user_contribution}}
                         </a>
                         {% comment %} <a class = "contribute-value">{{total_contribution}}</a> {% endcomment %}
                     </div>
@@ -292,7 +290,11 @@
                 <button type = "submit" name = "article_id" value = {{Article.id}} class="void-button">
                     <div class = "function-block-option">
                         <div class = "symbol">
-                            <i class="inside-symbol far fa-star fa-2x"></i>
+                            {% if already_favorite %}
+                                <i class="inside-symbol fas fa-star fa-2x"></i>
+                            {% else %}
+                                <i class="inside-symbol far fa-star fa-2x"></i>
+                            {% endif %}
                         </div>
                         Favorite
                     </div>
@@ -304,9 +306,9 @@
             <a href = "{{Article.id}}/reply" style = "text-decoration:none;">
                 <div class = "function-block-option">
                     <div class = "symbol">
-                        <i class="inside-symbol far fa-reply fa-2x"></i>
+                        <i class="inside-symbol fas fa-reply fa-2x"></i>
                     </div>
-                    reply
+                    Reply
                 </div>
             </a>
             {% endif %}

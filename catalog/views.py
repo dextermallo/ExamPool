@@ -38,14 +38,16 @@ def board(request, dpName, sbIndex):
     #load_article = Article.objects.filter(exist = True).filter(dp_abb = dpName).filter(sb_index = sbIndex).order_by("-id")
     load_article = Article.objects.filter(exist = True).filter(dp_abb = dpName).filter(sb_index = sbIndex).order_by("-id")
     form = searchForm(request.POST)
+    
     if request.method == "POST":   
+        print(request, file=sys.stderr)    
         if form.is_valid():
+            
             tag = form.cleaned_data.get("tag")
             title = form.cleaned_data.get("title")
             content = form.cleaned_data.get("content")
             author = form.cleaned_data.get("author")
             sort = form.cleaned_data.get("sort")
-            print(sort)
             whole_search = "?"
             if tag:
                 whole_search += "tag=" + tag + "&"
@@ -59,6 +61,7 @@ def board(request, dpName, sbIndex):
                 whole_search += "sort=" + sort + "&"
             return HttpResponseRedirect(whole_search)
 
+    print(request.get_full_path(), file=sys.stderr)
     if request.GET.get("tag"):
         tag = request.GET.get("tag")
         load_article = load_article.filter(tag_name__contains = tag).order_by("-id")
@@ -137,7 +140,26 @@ def article(request, dpName, sbIndex, articleId):
     load_comment = Comment.objects.filter(article_id = articleId)
     dp_full_name = Department.objects.get(dp_abb = dpName).dp_name
     sb_full_name = Department.objects.get(dp_abb = dpName).sb_name[int(sbIndex) - 1]
-
+    already_favorite = int(articleId) in User.objects.get(username=request.user.username).favorite.favorite
+    user_contribution = 0
+    author_contribution = 0
+    for article in Article.objects.filter(author=load_article.author):
+        author_contribution += len(article.good_list) - len(article.bad_list)
+    for comment in Comment.objects.filter(author=load_article.author):
+        author_contribution += len(comment.good_list) - len(comment.bad_list)
+    for comment in load_comment:
+        if comment.author == request.user.username:
+            user_contribution += len(comment.good_list) - len(comment.bad_list)
+    if load_article.author == request.user.username:
+        user_contribution += len(load_article.good_list) - len(load_article.bad_list)
+    commenters = load_comment.values_list('author', flat=True)
+    comment_icon = []
+    for name in commenters:
+        try:
+            comment_icon.append(str(User.objects.get(username=name).icon.icon))
+        except User.icon.RelatedObjectDoesNotExist:
+            comment_icon.append(None)
+    print(comment_icon)
     context = {
         'User' : request.user,
         'Article' : load_article,
@@ -146,9 +168,12 @@ def article(request, dpName, sbIndex, articleId):
         'tag_count' : [],
         'article_goodbad_count' : len(load_article.good_list) - len(load_article.bad_list),
         'comment_goodbad_count' : [len(x.good_list) - len(x.bad_list) for x in load_comment],
+        'user_contribution' : user_contribution,
         'department_name' : dp_full_name,
         'subject_name' : sb_full_name,
-        'author' : User.objects.get(username = load_article.author)
+        'author' : User.objects.get(username = load_article.author),
+        'comment_icon' : comment_icon,
+        'already_favorite' : already_favorite,
     }
 
     try:
@@ -166,15 +191,22 @@ def article(request, dpName, sbIndex, articleId):
         context['else_tag_count'] = else_tag_count
     except:
         pass
-    
+    context['author_contribution'] = author_contribution
     if request.method == 'POST':
         form = favoriteForm(request.POST)
         if form.is_valid():
             #if user's action is "add to favorite"
             #print(form.cleaned_data.get("article_id"))
-            user_name = request.user.username
+            user_id = request.user.id
             article_id = int(form.cleaned_data.get("article_id"))
-            print("add favorite")
+            user_favorite = Favorite.objects.get(user_id=user_id)
+            if already_favorite:
+                user_favorite.favorite.remove(article_id)
+            else:
+                user_favorite.favorite.append(article_id)
+            user_favorite.save()
+            already_favorite = int(articleId) in User.objects.get(username=request.user.username).favorite.favorite
+            context["already_favorite"] = already_favorite
             context["form"] = form
 
             return render(request, 'article.html', context)
@@ -232,15 +264,24 @@ def article(request, dpName, sbIndex, articleId):
                 if is_vote_article:
                     if user_vote == "good":
                         load_article.good_list.insert(0, user_name)
+                        be_voted = User.objects.get(username=load_article.author)
+                        #be_voted.contribution[]++
+                        
                     if user_vote == "bad":
                         load_article.bad_list.insert(0, user_name)
+                        be_voted = User.objects.get(username=load_article.author)
+                        #be_voted.contribution[]--
                     load_article.save()
                 else:
                     load_comment_el = load_comment.get(id=comment_id)
                     if user_vote == "good":
                         load_comment_el.good_list.insert(0, user_name)
+                        be_voted = User.objects.get(username=load_comment_el.author)
+                        #be_voted.contribution[]++
                     if user_vote == "bad":
                         load_comment_el.bad_list.insert(0, user_name)
+                        be_voted = User.objects.get(username=load_comment_el.author)
+                        #be_voted.contribution[]--
                     load_comment_el.save()
             print(user_name)
             print(comment_id)
@@ -250,6 +291,14 @@ def article(request, dpName, sbIndex, articleId):
             context["article_goodbad_count"] = len(load_article.good_list) - len(load_article.bad_list)
             context["comment_goodbad_count"] = [len(x.good_list) - len(x.bad_list) for x in load_comment]
             context["is_voted"] = is_voted
+
+            user_contribution = 0
+            for comment in load_comment:
+                if comment.author == request.user.username:
+                    user_contribution += len(comment.good_list) - len(comment.bad_list)
+            if load_article.author == request.user.username:
+                user_contribution += len(load_article.good_list) - len(load_article.bad_list)
+            context["user_contribution"] = user_contribution
 
             return render(request, 'article.html', context)
     return render(request, 'article.html', context)

@@ -90,6 +90,9 @@ find . -path "*/migrations/*.pyc"  -delete
 11. 修改 catalog 檔案夾名
 12. static 多餘資料去除
 16. 新增 comment 於個人頁面顯示
+17. 更新資料跳轉到原位
+18. good count
+19. 刪除的文章顯示灰色 
    
 # LOG
 ## 2019/3/12

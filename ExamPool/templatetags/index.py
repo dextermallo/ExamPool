@@ -9,3 +9,11 @@ def index(List, i):
 @register.filter
 def maxTag(Names, Counts):
     return Names[Counts.index(max(Counts))]
+
+@register.filter
+def keyToValue(Dict, Key):
+    return Dict[Key]
+
+@register.filter
+def subtract(val1, val2):
+    return val1 - val2

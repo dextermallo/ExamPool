@@ -1,5 +1,5 @@
 img{
-    max-width: 800px;
+    max-width: 600px;
 }
 
 .content{
@@ -299,7 +299,7 @@ img{
 
 .function-block-option{
     height:100px;
-    width:163px;
+    width:172px;
     background-color: rgba(0,0,0,0.5);
     border-bottom: rgb(75,147,67) 2px solid !important;
     border-top: rgb(75,147,67) 2px solid!important;
@@ -353,7 +353,7 @@ img{
 
 .content-container-indentation-1{
     left:270px;
-    width:45%;
+    width:46%;
 }
 
 .content-indentation-1{
@@ -412,7 +412,7 @@ img{
     text-align: right;
     width:120px;
     height:25px;
-    left:83.445%;
+    left:82.445%;
     top:-237px;
     color:#fff;
     /*border:  #000 1px solid;*/

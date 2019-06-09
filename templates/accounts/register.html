@@ -3,7 +3,7 @@
     <head>
         <meta charset = "utf-8">
         <title>Register</title>
-        
+
         <link rel = "stylesheet" type = "text/css" href = "../../static/bootstrap-4.3.1/css/bootstrap.min.css">
         <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     </head>
@@ -17,14 +17,14 @@
                 <div class = 'row justify-content-around align-items-center'>
                     <h1 class="h3 font-weight-normal">Register</h1>
                 </div>
-                {% for field in form %} 
-                    <div class="row justify-content-around align-items-center form-group">  
+                {% for field in form %}
+                    <div class="row justify-content-around align-items-center form-group">
                     <!--<label  for="{{ field.id_for_label }}">{{ field.label }}:</label>-->
-                    {% render_field field class+="form-control grid" %}    
-                    </div> 
+                    {% render_field field class+="form-control grid" %}
+                    </div>
                 {% endfor %}
                 <div class = 'row justify-content-around align-items-center'>
-                    <button class = "btn btn-lg btn-primary btn-block grid" type="submit">Register</button>    
+                    <button class = "btn btn-lg btn-primary btn-block grid" type="submit">Register</button>
                 </div>
             </form>
     </body>

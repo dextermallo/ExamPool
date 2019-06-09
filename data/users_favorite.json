@@ -1,0 +1,7 @@
+{"_id":{"$oid":"5cfc6bf98d0af852507644c9"},"user_id":{"$numberInt":"11"},"favorite":[{"$numberInt":"19"},{"$numberInt":"2"}]}
+{"_id":{"$oid":"5cfc6cfd8d0af852507644da"},"user_id":{"$numberInt":"12"},"favorite":[]}
+{"_id":{"$oid":"5cfc6d518d0af852507644ee"},"user_id":{"$numberInt":"14"},"favorite":[]}
+{"_id":{"$oid":"5cfc6dc78d0af843fc7fd035"},"user_id":{"$numberInt":"15"},"favorite":[{"$numberInt":"19"},{"$numberInt":"23"}]}
+{"_id":{"$oid":"5cfc76df8d0af834fc5dabfb"},"user_id":{"$numberInt":"16"},"favorite":[]}
+{"_id":{"$oid":"5cfc76ff8d0af834fc5dac01"},"user_id":{"$numberInt":"17"},"favorite":[]}
+{"_id":{"$oid":"5cfcca1d8d0af8132ca4761c"},"user_id":{"$numberInt":"23"},"favorite":[]}

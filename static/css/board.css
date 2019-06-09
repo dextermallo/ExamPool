@@ -57,6 +57,14 @@ img {
   box-shadow: 0 5px 5px #193047;
 }
 
+.side-menu-submit{
+  background:rgb(75, 147, 67);
+  color:#fff;
+  text-align: center;
+  letter-spacing: 2px;
+  font-family: 'Borda';
+}
+
 @keyframes AnimationName {
   0% {
     background-position: 0% 50%;

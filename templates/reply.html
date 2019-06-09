@@ -49,20 +49,9 @@
                             >>{{replyto_comment.author}}
                         </div>
                     </div>
-                    <div class = "form-control">
+                    <div class = "reply-content">
                         <div>
                             {{replyto_comment.content|safe}}
-                        </div>
-                    </div>
-                {% else %}
-                    <div class = "reply_bg">
-                        <div class = "reply">
-                            >>{{article.author}}
-                        </div>
-                    </div>
-                    <div class = "form-control">
-                        <div>
-                            {{article.content|safe}}
                         </div>
                     </div>
                 {% endif %}
@@ -73,14 +62,14 @@
                     <div class = "editor-container">
                         <img class = "corner-r" src = {% static "img/corner.png" %} draggable="false"></img>
                         <div class="row justify-content-around align-items-center form-group"> 
-                            <input id = "content" type = "hidden" name = "content" maxlength = "2000" required id = "id_content" type = "hidden" value = {{ "'"|add:article.content|add:"'"|safe }}>
+                            <input id = "content" type = "hidden" name = "content" maxlength = "2000" required id = "id_content" type = "hidden">
                             <div id = "editor-container" class = "form-control border mt-3"></div>
                             {% include 'editor.html' %}
                             <img class = "corner" src = {% static "img/corner.png" %} draggable="false"></img>
                         </div>
                     </div>
                     <div class = 'row justify-content-around align-items-center'>
-                        <button class = "btn submit-btn" type="submit">EDIT</button>    
+                        <button class = "btn submit-btn" type="submit">REPLY</button>
                     </div>
                 </form>
             </div>

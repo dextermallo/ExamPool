@@ -9,76 +9,95 @@ from django.template import loader, Context, RequestContext
 from collections import Counter
 
 def login(request):
-    
-    if request.user.is_authenticated: 
-        return HttpResponseRedirect('/index/')
-    
-    if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        user = User.authenticate(username=username, password=password)
-        if user is not None and user.is_active:            
-            auth.login(request, user)
-            return HttpResponseRedirect('/index/')
-        else: 
-            return render(request, 'accounts/login.html') 
-    else: 
-        return render(request, 'accounts/login.html') 
+	
+	if request.user.is_authenticated: 
+		return HttpResponseRedirect('/index/')
+	
+	if request.method == 'POST':
+		username = request.POST.get('username', '')
+		password = request.POST.get('password', '')
+		user = User.authenticate(username=username, password=password)
+		if user is not None and user.is_active:			
+			auth.login(request, user)
+			return HttpResponseRedirect('/index/')
+		else: 
+			return render(request, 'accounts/login.html') 
+	else: 
+		return render(request, 'accounts/login.html') 
 
 def register(request):
-    if request.user.is_authenticated: 
-        return HttpResponseRedirect('/index/')
+	if request.user.is_authenticated: 
+		return HttpResponseRedirect('/index/')
 
-    if request.method == 'POST':
-        username = request.POST.get('username', '')
-        email = request.POST.get('email', '')
-        first_name = request.POST.get('first_name', '')
-        last_name = request.POST.get('last_name', '')
-        password = request.POST.get('password', '')
-        
-        user = User.create_user(username = username, email = email, password = password, first_name = first_name, last_name = last_name)
-        Icon.create_icon(user.id, './user_img.png')
-        Contribution.create_contribution(user.id)
-        Favorite.create_favorite(user.id)
-        Voting.create_voting(user.id)        
-        #return render(request, '/accounts/login/', locals())
-        ret = {
-            'username': email,
-            'password': password
-        }
-        return HttpResponseRedirect('/accounts/login/')
-    else:
-        return render(request, 'accounts/login.html', ret)
-    
+	if request.method == 'POST':
+		username = request.POST.get('username', '')
+		email = request.POST.get('email', '')
+		first_name = request.POST.get('first_name', '')
+		last_name = request.POST.get('last_name', '')
+		password = request.POST.get('password', '')
+		
+		user = User.create_user(username = username, email = email, password = password, first_name = first_name, last_name = last_name)
+		Icon.create_icon(user.id, './user_img.png')
+		Contribution.create_contribution(user.id)
+		Favorite.create_favorite(user.id)
+		Voting.create_voting(user.id)		
+		#return render(request, '/accounts/login/', locals())
+		ret = {
+			'username': email,
+			'password': password
+		}
+		return HttpResponseRedirect('/accounts/login/')
+	else:
+		return render(request, 'accounts/login.html', ret)
+	
 def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect('/index/')
+	auth.logout(request)
+	return HttpResponseRedirect('/index/')
 
 def user_profile(request, username):
 	try:
 		result = User.objects.get(username = username) 
-		
-		icon = Icon.objects.get(user_id = request.user.id)
+		icon = Icon.objects.get(user_id = result.id)		
+
+		ret_comments = []
 		comments = Comment.objects.all().filter(author = username)
-        
+		for comment in comments:
+			search_article = Article.objects.get(id = comment.article_id)
+			ret_comments.append(search_article)
+
 		articles = Article.objects.all().filter(author = username)
 		replys = {}
 
-		for article in articles:
-			print(article.id, file=sys.stderr)			
-			print(len(Counter(Comment.objects.filter(article_id = article.id))))
+		for article in articles:			
 			replys[article.id] = len(Counter(Comment.objects.filter(article_id = article.id))) if comments is not None else 0
+		
+		ret_favorites = []
+		for favorite in result.favorite.favorite:
+			search_article = Article.objects.get(id = favorite)					
+			ret_favorites.append(search_article)
+		
+		if not ret_favorites:
+			ret_favorites = None
+		
+		if not ret_comments:
+			ret_comments = None
+		else:
+			ret_comments = set(ret_comments)
+
+		if not articles:
+			articles = None
+
 		ret = {
 			'username': result.username,
-			'email': result.email,            
+			'email': result.email,			
 			'first_name': result.first_name,
-			'last_name': result.last_name,            
+			'last_name': result.last_name,			
 			'contribution': articles,
 			'replys': replys,
-			'comments': comments,
+			'comments': ret_comments,
 			'icon': icon.icon.url,
-			'comments': None,
-			}    
+			'favorites': ret_favorites,
+			}	
 	except:
 		ret = {
 			'result': False,
@@ -88,17 +107,18 @@ def user_profile(request, username):
 
 def update_user_profile(request):
 
-    if request.user.is_authenticated:
-        username = request.user.username
-        first_name = request.POST.get('first_name', '')
-        last_name = request.POST.get('last_name', '')
-        email = request.POST.get('email', '')
-        password = request.POST.get('password', '')
-        User.update_profile(username, email, first_name, last_name, password)
+	if request.user.is_authenticated:
+		username = request.user.username
+		first_name = request.POST.get('first_name', '')
+		last_name = request.POST.get('last_name', '')
+		email = request.POST.get('email', '')
+		password = request.POST.get('password', '')
+		User.update_profile(username, email, first_name, last_name, password)
 
-        return HttpResponseRedirect('/index/')
-    else:
-        return render(request, '/index/')
+		return HttpResponseRedirect('/index/')
+		
+	else:
+		return render(request, '/index/')
 
 def update_user_icon(request):
 	if (request.user.is_authenticated) & (request.method == 'POST'):		
