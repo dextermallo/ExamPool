@@ -8,7 +8,7 @@ img{
 
 @font-face {
     font-family: 'Borda';
-    src: url('fonts/Borda.woff') format("woff")
+    src: url('../fonts/Borda.woff') format("woff")
   }
 
 .bg-img{
@@ -25,7 +25,7 @@ img{
 
 .main-container{
     position: relative;
-    width:980px;
+    width:80%;
     top:50px;
     left:100px;
 }
@@ -68,7 +68,7 @@ img{
     display: inline-block;
     top:0px;
     left:-5px;
-    width:1225px;
+    width:70%;
     height:225px;
     background-color: rgba(0,0,0,0.8);
     border-left: rgb(75,147,67) 3px double;
@@ -92,18 +92,23 @@ img{
     position: relative;
     top:-7px;
     left:-5px;
-    width:1225px;
+    width:70%;
     border-left: rgb(75,147,67) 3px double;
     background-color: rgba(0,0,0,0.8);
     display: inline-block;
 }
 
 .M-container{
-    width: 1550px;
+    width: 100%;
 }
 
 .upper-container{
-    height: 230px;   
+    height: 5%;
+       
+}
+
+.comment-upper-container{
+    margin-bottom: -50px!important;
 }
 
 .user-avatar{
@@ -134,7 +139,7 @@ img{
     position: absolute;
     background-color:rgba(0,0,0,0.4);
     text-align: center;
-    width:1200px;
+    width:97%;
     left:10px;
     color:#fff;
     letter-spacing: 8px;
@@ -145,7 +150,7 @@ img{
 
 .tags-container{
     position: absolute;
-    width:800px;
+    width:70%;
     height:110px;
     left:10px;
     top:100px;
@@ -277,25 +282,27 @@ img{
 .article-content{
     background-color: rgba(0,0,0,0.5);
     position: absolute;
-    width:1220px;
+    width:100%;
     min-height: 225px!important;
+    padding-top:10px;
+    padding-left:10px;
     color:#fff;
 }
 
 .function-block{
     position: fixed;
-    top:115px;
-    right:50px;
-    width:200px;
+    top:60px;
+    right:22px;
+    width:12%;
     background-color: rgba(0,0,0,0.8);
 }
 
 .function-block-option{
-    height:145px;
-    width:200px;
+    height:100px;
+    width:163px;
     background-color: rgba(0,0,0,0.5);
-    border-bottom: rgb(75,147,67) 2px solid;
-    border-top: rgb(75,147,67) 2px solid;
+    border-bottom: rgb(75,147,67) 2px solid !important;
+    border-top: rgb(75,147,67) 2px solid!important;
     margin-bottom: 5px;
     font-family: "Borda";
     text-align: center;
@@ -310,18 +317,18 @@ img{
 
 .symbol{
     position: relative;
-    left:50px;
-    top:16px;
-    height:100px;
-    width:100px;
-    margin-bottom: 16px;
+    left:31.5%;
+    top:5px;
+    height:60px;
+    width:60px;
+    margin-bottom: 0px;
     border-radius: 50%;
-    border: #000 2px solid;
+    border: #000 2px solid!important;
     background-color: rgba(255,255,255,0.2);
 }
 
 .inside-symbol{
-    margin-top:27px;
+    margin-top:7px;
     margin-left:2px;
 }
 
@@ -330,7 +337,7 @@ img{
     font-size:30px;
     letter-spacing: 5px;
     text-align: center;
-    top:27px;
+    top:7px;
     left:2px;
 }
 
@@ -346,11 +353,11 @@ img{
 
 .content-container-indentation-1{
     left:270px;
-    width:950px;
+    width:45%;
 }
 
 .content-indentation-1{
-    width:945px;
+    width:100%;
 }
 
 .article-bg-container{
@@ -367,7 +374,7 @@ img{
     position: relative;
     width:220px;
     height:50px;
-    left:1300px;
+    left:76.445%;
     bottom:80px;
     color:#fff;
     /*border: #000 1px solid;*/
@@ -405,10 +412,10 @@ img{
     text-align: right;
     width:120px;
     height:25px;
-    left:1375px;
+    left:83.445%;
     top:-237px;
     color:#fff;
-    /*border: #000 1px solid;*/
+    /*border:  #000 1px solid;*/
 }
 
 .links{

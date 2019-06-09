@@ -17,14 +17,12 @@ def login(request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
         user = User.authenticate(username=username, password=password)
-        if user is not None and user.is_active:
-            print("***********", file=sys.stderr)
+        if user is not None and user.is_active:            
             auth.login(request, user)
-            print("***********", file=sys.stderr)
             return HttpResponseRedirect('/index/')
-        else: # TODO: Add account verify.
+        else: 
             return render(request, 'accounts/login.html') 
-    else: # via GET method to return page.
+    else: 
         return render(request, 'accounts/login.html') 
 
 def register(request):
@@ -58,29 +56,29 @@ def logout(request):
 
 def user_profile(request, username):
 	try:
-		print(request.user.username, file=sys.stderr)
 		result = User.objects.get(username = username) 
-		#articles = Article.objects.all().filter(author = username)
-		print('========================', file=sys.stderr)
+		
 		icon = Icon.objects.get(user_id = request.user.id)
-		print(str(icon.icon.url), file=sys.stderr)
-		print('========================', file=sys.stderr)
-		reply_count = {}
-		print("***************", file=sys.stderr)
-		# for article in articles:
-		# 	comments = Comment.objects.all().filter(article_id = article.id)
-		# 	reply_count[article.id] = len(Counter(comments)) if comments is not None else 0
-		print("***************", file=sys.stderr)
+		comments = Comment.objects.all().filter(author = username)
+        
+		articles = Article.objects.all().filter(author = username)
+		replys = {}
+
+		for article in articles:
+			print(article.id, file=sys.stderr)			
+			print(len(Counter(Comment.objects.filter(article_id = article.id))))
+			replys[article.id] = len(Counter(Comment.objects.filter(article_id = article.id))) if comments is not None else 0
 		ret = {
 			'username': result.username,
 			'email': result.email,            
 			'first_name': result.first_name,
 			'last_name': result.last_name,            
-			#'contribution': articles,
-			#'reply': reply_count,
+			'contribution': articles,
+			'replys': replys,
+			'comments': comments,
 			'icon': icon.icon.url,
-            'comments': None,
-		}    
+			'comments': None,
+			}    
 	except:
 		ret = {
 			'result': False,

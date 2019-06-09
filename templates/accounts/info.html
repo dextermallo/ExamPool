@@ -22,16 +22,11 @@
 
     </head>
     <body>
-        {% if result == False %}
-            {% include 'nav.html' %}
+        {% include 'nav.html' %}
+        {% if result == False %}            
             {% include 'error.html' %}
-        {% else %}
-            {% include 'nav.html' %}
-            {% if request.user.username == username %}
-                {% include 'accounts/_profile.html' %}
-            {% else %}
-                {% include 'accounts/_others.html' %}
-            {% endif %}
+        {% else %}            
+            {% include 'accounts/_profile.html' %}            
 		{% endif %}
     </body>
 </html>

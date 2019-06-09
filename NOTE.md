@@ -139,4 +139,6 @@ find . -path "*/migrations/*.pyc"  -delete
    2. user 管理介面功能
    3. 修改register.html (耦合)
    4. ImageField 上傳使用者圖片
+## 2019/6/08
+   1. 修正註冊用戶不會同時生成其他用戶 model.
 

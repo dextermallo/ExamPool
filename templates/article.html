@@ -191,7 +191,7 @@
                 <div class = "all-comment-container">             
                     {% for comment in Comment %}
                         {% if comment.exist %}
-                            <div class = "upper-container">
+                            <div class = "comment-upper-container">
                                 <div class = "comment-author-container
                                 {% if comment.parent_comment_id != 0 %}
                                 author-indentation-1
@@ -304,9 +304,9 @@
             <a href = "{{Article.id}}/reply" style = "text-decoration:none;">
                 <div class = "function-block-option">
                     <div class = "symbol">
-                        <i class="inside-symbol fas fa-reply fa-2x"></i>
+                        <i class="inside-symbol far fa-reply fa-2x"></i>
                     </div>
-                    Reply
+                    reply
                 </div>
             </a>
             {% endif %}

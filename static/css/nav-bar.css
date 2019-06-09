@@ -25,3 +25,7 @@
 .btn-nav {
     width: 80px;
 }
+
+.nav-hello-tag {
+    color: rgba(208, 147, 35, 1) !important;
+}

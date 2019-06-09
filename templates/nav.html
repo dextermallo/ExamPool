@@ -8,7 +8,7 @@
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 navitem" href="/department">學系列表</a>
         <a class="p-2 navitem" href="#">練習</a>
-        <a class="p-2 navitem" href="#">沒東西放</a>
+        <a class="nav-hello-tag"> Hi, {{request.user.first_name}} </a>
     </nav>
     
     {% if request.user.is_authenticated %}

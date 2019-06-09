@@ -116,12 +116,12 @@
                                             {% load mathfilters %}
                                             {% endfor%}
                                             </td>
-                                            <td>留言數</td>
+                                            <td>留言數 {{ replys.value }}</td>
                                             <td>
-                                            {% if contrib.good_count > contrib.bad_count %}
-                                            <span class="badge badge-success">{{ contrib.good_count|sub:contrib.bad_count }}</span>
+                                            {% if contrib.good_list|length > contrib.bad_list|length %}
+                                            <span class="badge badge-success">{{ contrib.good_list|length|sub:contrib.bad_list|length }}</span>
                                             {% else %}
-                                            <span class="badge badge-danger">{{ contrib.bad_count|sub:contrib.good_count }}</span>
+                                            <span class="badge badge-danger">{{ contrib.bad_list|length|sub:contrib.good_list|length }}</span>
                                             {% endif %}
                                             </td>
                                         </tr>
@@ -198,7 +198,7 @@
                                             <th>系所</th>
                                             <th>標題</th>
                                             <th>作者</th>
-                                            <th>標籤</th>                                        
+                                            <th>推噓數</th>                                        
                                         </tr>
                                     </thead>
                                     <tbody>                                                                    

@@ -38,7 +38,7 @@ img{
 .enter-img{
     margin-top: 2rem;
     width: 18rem;
-    position: fixed;
+    position: absolute;
     z-index: 5;
     opacity: 0;
     transition: .5s;

@@ -17,68 +17,6 @@ from django.utils import timezone
 def index(request):
     return render(request, 'index.html',locals())
 
-def login(request):
-    
-    if request.user.is_authenticated: 
-        return HttpResponseRedirect('/index/')
-
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    
-    user = auth.authenticate(username=username, password=password)
-
-    if user is not None and user.is_active:
-        auth.login(request, user)
-        return HttpResponseRedirect('/index/')
-    else:
-        return render(request, 'accounts/login.html') 
-
-def register(request):
-    
-    if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        email = request.POST.get('email', '')
-        
-        user = User.create_user(username = username, password = password, email = 'test@mail.com', icon = "", voting = 0, favorite = "", contribution= "")
-        user.save()
-        #return render(request, '/accounts/login/', locals())
-        ret = {
-            'username': username,
-            'password': password
-        }
-        return HttpResponseRedirect('/accounts/login/')
-    else:
-        ret = {
-            'username': request.GET.get('username', ''),
-            'password': request.GET.get('password', '')
-        }
-        return render(request, 'accounts/login.html', ret)
-    
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect('/index/')
-
-def userInfo(request, username):
-    try:
-        result = User.objects.get(username = username) 
-        print(result.date_joined, file=sys.stderr)
-        ret = {
-            'username': result.username,
-            'email': result.email,
-            'password': result.password,
-            'icon': result.icon,
-            'voting': result.voting,
-            'favorite': result.favorite,
-            'contribution': result.contribution,
-            'registerDate': result.date_joined
-        
-        }
-        
-    except:
-        result = False
-    return render(request, 'accounts/info.html', ret)
-
 def allDepartment(request):
     load_department = Department.objects.all()
     context = {
